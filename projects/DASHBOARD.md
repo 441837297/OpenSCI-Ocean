@@ -24,7 +24,7 @@ Day 0        Day 1           Day 2-3          Day 4-7        Day 7+
 
 | # | 方向 | 状态 | 负责人 | 启动日期 | 目标期刊 | 链接 |
 |---|---|---|---|---|---|---|
-| P01 | TBD | ⬜ Pending | — | — | — | — |
+| P01 | Scale-Dependent Regime Transition in Submesoscale Air-Sea Coupling | 🔬 D0 候选 | Kris19999 | 2026-06-05 | NC (primary) / GRL (fallback) | [README](p01/README.md) |
 | P02 | TBD | ⬜ Pending | — | — | — | — |
 | P03 | TBD | ⬜ Pending | — | — | — | — |
 | P04 | TBD | ⬜ Pending | — | — | — | — |
