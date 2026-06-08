@@ -1,6 +1,6 @@
-# P01: Scale-Dependent Submesoscale Air-Sea Coupling Revealed by SWOT Wind Speed
+# P01: Scale-Dependent Regime Transition in Submesoscale Air-Sea Coupling Revealed by SWOT
 
-> Does air-sea coupling undergo a scale-dependent transition from mesoscale to submesoscale, and can SWOT wind speed, SWOT SSH, and geostationary SST reveal fine-scale wind responses that traditional wind products cannot resolve?
+> Does air-sea coupling undergo a regime transition from mesoscale to submesoscale, and can SWOT wind speed, SWOT SSH, and geostationary SST reveal where and how the coupling physics changes?
 
 ## Status
 
@@ -35,7 +35,7 @@ The Gulf Stream and Kuroshio Extension are the primary pilot regions because the
 
 ## Core Position After Discussion
 
-The scale-dependent regime-transition framing is scientifically attractive and should be retained. However, the primary atmospheric response field should be **SWOT L2 wind speed**, not ASCAT.
+The group-revised regime-transition framing is scientifically stronger and should be retained. The main adjustment proposed here is not to change the scientific logic, but to change the hierarchy of wind datasets: the primary atmospheric response field should be **SWOT L2 wind speed**, not ASCAT.
 
 ASCAT is valuable, but it should not replace SWOT as the main wind dataset for this project. ASCAT provides vector winds and therefore helps with downwind/crosswind decomposition at coarse scales, but its effective resolution is too coarse to serve as the core evidence for submesoscale wind responses. If the story is that SWOT reveals submesoscale air-sea coupling missed by traditional satellites, SWOT wind speed must be central.
 

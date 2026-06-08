@@ -10,7 +10,7 @@
 
 组内修改后的科学问题更有论文潜力：从“SWOT 视角下全球风动能分布”推进到“海气耦合系数从中尺度到亚中尺度是否存在尺度依赖或 regime transition”。这个 framing 更像一个可以投稿的科学假说，而不是单纯的数据展示。
 
-但是，数据主次需要重新明确：**如果项目的核心卖点是 SWOT 揭示传统卫星看不到的亚中尺度海气耦合，那么 SWOT L2 sigma0-derived wind speed 应该是主风场资料，而不是 supporting dataset。**
+因此建议主要保留组内修改后的题目和科学逻辑，不再另起一个偏技术化的新题目。需要调整的是数据主次：**如果项目的核心卖点是 SWOT 揭示传统卫星看不到的亚中尺度海气耦合，那么 SWOT L2 sigma0-derived wind speed 应该是主风场资料，而不是 supporting dataset。**
 
 ASCAT、ERA5、CCMP 仍然重要，但它们更适合做：
 
@@ -31,7 +31,7 @@ Does air-sea coupling undergo a scale-dependent transition from mesoscale to sub
 
 ### 2.2 中文表述
 
-海气耦合从中尺度进入亚中尺度时，耦合系数是否保持连续，还是会发生衰减、饱和或机制转换？SWOT 风速、SWOT SSH 和静止卫星 SST 的联合观测，能否揭示传统散射计和再分析风场看不到的细尺度风速响应？
+海气耦合从中尺度进入亚中尺度时，耦合系数是否保持连续，还是会发生衰减、饱和或机制转换？SWOT 风速、SWOT SSH 和静止卫星 SST 的联合观测，能否揭示这种尺度转换发生在哪里、如何发生，以及传统散射计和再分析风场看不到的细尺度风速响应？
 
 ### 2.3 为什么这个问题比原始问题更强
 
@@ -174,6 +174,8 @@ ASCAT/ERA5/CCMP 看不到细结构，主要是因为分辨率、采样和反演/
 可以这样和组里沟通：
 
 > 我同意把科学问题提升为 scale-dependent regime transition，这比单纯讨论风动能分布更有论文潜力。但我建议把 SWOT L2 sigma0-derived wind speed 从 supporting dataset 提升为 primary atmospheric response field。因为如果核心论点是 SWOT 揭示了传统卫星看不到的亚中尺度海气耦合，那么风速响应本身应该主要来自 SWOT。ASCAT 很重要，但更适合作为 coarse-scale benchmark、vector-wind reference 和 downwind/crosswind 的辅助资料，不能替代 SWOT 来支撑 2-10 km 亚中尺度风场响应。
+
+更简短地说：**题目和科学逻辑沿用组内版本，资料主次改为 SWOT wind speed 主导。**
 
 ---
 

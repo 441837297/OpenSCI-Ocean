@@ -2,7 +2,7 @@
 
 ## 工作标题
 
-基于 SWOT 风速、SWOT SSH 与静止卫星 SST 的尺度依赖亚中尺度海气耦合研究
+SWOT 揭示的亚中尺度海气耦合尺度依赖 regime transition
 
 ## 核心科学问题
 
@@ -10,7 +10,7 @@
 
 ## 核心原则
 
-科学问题可以采用组内修改后的“尺度依赖 / regime transition”框架，但主风场资料应当是 SWOT L2 wind speed。ASCAT、ERA5 和 CCMP 应作为对照、验证、背景场和矢量风辅助资料，而不是替代 SWOT 来支撑亚中尺度风速响应。
+科学问题应主要沿用组内修改后的“尺度依赖 / regime transition”框架。这里的主要修订不是重写科学逻辑，而是调整资料主次：主风场资料应当是 SWOT L2 wind speed。ASCAT、ERA5 和 CCMP 应作为对照、验证、背景场和矢量风辅助资料，而不是替代 SWOT 来支撑亚中尺度风速响应。
 
 ## 变量
 
