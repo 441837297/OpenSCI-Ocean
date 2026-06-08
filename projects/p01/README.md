@@ -37,7 +37,7 @@ The Gulf Stream and Kuroshio Extension are the primary pilot regions because the
 
 The group-revised regime-transition framing is scientifically stronger and should be retained. The main adjustment proposed here is not to change the scientific logic, but to change the hierarchy of wind datasets: the primary atmospheric response field should be **SWOT L2 wind speed**, not ASCAT.
 
-ASCAT is valuable, but it should not replace SWOT as the main wind dataset for this project. ASCAT provides vector winds and therefore helps with downwind/crosswind decomposition at coarse scales, but its effective resolution is too coarse to serve as the core evidence for submesoscale wind responses. If the story is that SWOT reveals submesoscale air-sea coupling missed by traditional satellites, SWOT wind speed must be central.
+ASCAT is valuable, but it should not replace SWOT as the main wind dataset for this project. Its main role should be to provide a coarse-scale benchmark for traditional wind products and to help evaluate what is smoothed or missed relative to SWOT. If the story is that SWOT reveals submesoscale air-sea coupling missed by traditional satellites, SWOT wind speed must be central.
 
 ## Hypotheses
 
@@ -61,7 +61,7 @@ All datasets are public. Raw data must not be committed; only download scripts, 
 
 ### Supporting datasets
 
-- **ASCAT vector winds**: coarse-scale benchmark and vector-wind reference. Useful for downwind/crosswind decomposition only at ASCAT-resolvable scales.
+- **ASCAT vector winds**: coarse-scale benchmark for traditional satellite winds and consistency checks at ASCAT-resolvable scales.
 - **ERA5 10 m winds and surface fields**: background atmospheric state, synoptic filtering, stability context, and sensitivity tests.
 - **CCMP ocean surface winds**: gridded traditional wind-product comparison.
 
@@ -107,14 +107,7 @@ K10_SWOT' = gamma(lambda) SST_front_metric + residual
 
 The coefficients should be estimated as functions of wavelength or filter cutoff `lambda`. A break, plateau, or phase shift in these curves would indicate scale-dependent coupling or a possible regime transition.
 
-Secondary vector-wind coefficients, using ASCAT or ERA5 only at resolvable scales:
-
-```text
-curl(tau) = a crosswind_grad(SST) + residual
-div(tau) = b downwind_grad(SST) + residual
-```
-
-These are useful but should not be used as evidence for 2-10 km SWOT-scale wind responses.
+Vector-wind curl/divergence diagnostics are not part of the initial core analysis. They can be revisited later only if they become necessary for a separate mechanism test.
 
 ### Step 5: Spectral and coherence analysis
 

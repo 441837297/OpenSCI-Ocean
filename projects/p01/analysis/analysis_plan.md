@@ -10,7 +10,7 @@ SWOT 揭示的亚中尺度海气耦合尺度依赖 regime transition
 
 ## 核心原则
 
-科学问题应主要沿用组内修改后的“尺度依赖 / regime transition”框架。这里的主要修订不是重写科学逻辑，而是调整资料主次：主风场资料应当是 SWOT L2 wind speed。ASCAT、ERA5 和 CCMP 应作为对照、验证、背景场和矢量风辅助资料，而不是替代 SWOT 来支撑亚中尺度风速响应。
+科学问题应主要沿用组内修改后的“尺度依赖 / regime transition”框架。这里的主要修订不是重写科学逻辑，而是调整资料主次：主风场资料应当是 SWOT L2 wind speed。ASCAT、ERA5 和 CCMP 应作为对照、验证和背景场资料，而不是替代 SWOT 来支撑亚中尺度风速响应。
 
 ## 变量
 
@@ -33,7 +33,7 @@ SWOT 揭示的亚中尺度海气耦合尺度依赖 regime transition
 - 以 SWOT swath 时间和空间坐标为基准。
 - 从同一条 SWOT 轨道中提取 wind speed 与 SSH。
 - 在候选时间窗内匹配 GOES/Himawari 晴空 SST，例如 `±30 min`、`±1 h`、`±3 h`。
-- ASCAT、ERA5、CCMP 只作为对照产品和矢量风参考。
+- ASCAT、ERA5、CCMP 只作为对照产品、验证资料和背景场参考。
 - 保留 SWOT 质量标记、SST 云掩膜、降雨标记、陆地掩膜和 swath edge 指标。
 
 ### 2. 多尺度分解
@@ -75,14 +75,7 @@ K10_SWOT' = gamma(lambda) SST_front_metric + residual
 
 其中 `lambda` 表示空间尺度或滤波截止波长。核心检验是 `alpha(lambda)`、`beta(lambda)`、相干性或相位是否从中尺度到亚中尺度发生 break、plateau、decay 或 phase shift。
 
-辅助矢量风诊断可在 ASCAT 或 ERA5 可解析尺度上进行：
-
-```text
-curl(tau) = a crosswind_grad(SST) + residual
-div(tau) = b downwind_grad(SST) + residual
-```
-
-这些诊断有助于机制解释，但不应被表述为 SWOT 2-10 km 尺度风速响应的直接证据。
+风应力 curl/divergence 和 downwind/crosswind 等矢量风诊断不作为初始核心分析内容。若后续机制解释确实需要，可作为独立扩展任务重新评估。
 
 ### 5. 谱分析与相干分析
 

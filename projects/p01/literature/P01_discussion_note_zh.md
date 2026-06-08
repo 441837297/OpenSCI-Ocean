@@ -17,7 +17,7 @@ ASCAT、ERA5、CCMP 仍然重要，但它们更适合做：
 - 传统风产品对照；
 - 中尺度一致性验证；
 - 背景风场和天气尺度控制；
-- 有风向需求的粗尺度 downwind / crosswind 分解。
+- 背景风场和传统产品对照。
 
 它们不应替代 SWOT 风速来承担 2-10 km 或 10-25 km 亚中尺度风速响应的核心证据。
 
@@ -61,7 +61,7 @@ Does air-sea coupling undergo a scale-dependent transition from mesoscale to sub
 
 | 数据 | 来源 | 用途 | 优先级 |
 |---|---|---|---|
-| ASCAT vector winds | EUMETSAT / OSI SAF / PO.DAAC | 粗尺度矢量风；中尺度对照；downwind/crosswind 分解；验证传统卫星能看到什么 | 推荐 |
+| ASCAT vector winds | EUMETSAT / OSI SAF / PO.DAAC | 粗尺度传统风产品对照；中尺度一致性验证；评估传统卫星能看到什么、遗漏什么 | 推荐 |
 | ERA5 10m winds / surface fields | CDS / ECMWF | 大尺度背景风、天气尺度控制、稳定度或边界层背景 | 推荐 |
 | CCMP ocean surface winds | RSS / PO.DAAC | 多源融合传统风场对照，评估 SWOT 与传统 gridded wind products 的差异 | 可选 |
 
@@ -89,15 +89,11 @@ Does air-sea coupling undergo a scale-dependent transition from mesoscale to sub
 
 这些系数不需要风向，因此可以把 SWOT wind speed 放在中心。
 
-### 4.2 需要矢量风的辅助系数
+### 4.2 暂不纳入初始核心分析的系数
 
-| 系数 | 形式 | 所需数据 | 注意事项 |
-|---|---|---|---|
-| wind stress curl coupling | `curl(tau) = a crosswind_grad(SST) + residual` | ASCAT / ERA5 vector wind or wind stress | 只能代表矢量风产品可分辨尺度 |
-| wind stress divergence coupling | `div(tau) = b downwind_grad(SST) + residual` | ASCAT / ERA5 vector wind or wind stress | 不适合直接外推到 SWOT 2-10 km 尺度 |
-| downwind/crosswind decomposition | wind component relative to SST front orientation | vector winds + SST gradient direction | 可作为辅助机制分析 |
+风应力 curl/divergence、downwind/crosswind decomposition 等诊断需要矢量风或风应力产品。它们虽然在传统 SST-wind coupling 文献中很常见，但会把本项目的初始主线重新拉回 ASCAT/ERA5，而不是 SWOT wind speed。
 
-这些诊断很有价值，但不应替代 SWOT wind speed 的主线。
+因此 D0/D1 阶段建议暂不把这类诊断写成核心任务。若后续结果显示必须区分风向响应，再作为扩展分析单独设计。
 
 ---
 
@@ -147,8 +143,7 @@ SWOT wind speed 是风速大小，不是完整矢量风。因此：
 
 - 可以做 `U10`、`K10`、`grad U10`、`grad K10`；
 - 可以做 SST-front 与 wind-speed response 的耦合；
-- 不应单独做 wind stress curl/divergence；
-- downwind/crosswind 分解需要 ASCAT 或 ERA5 等矢量风产品。
+- 初始阶段不做 wind stress curl/divergence 或 downwind/crosswind 分解。
 
 ### 6.3 机制不能直接假设
 
@@ -173,7 +168,7 @@ ASCAT/ERA5/CCMP 看不到细结构，主要是因为分辨率、采样和反演/
 
 可以这样和组里沟通：
 
-> 我同意把科学问题提升为 scale-dependent regime transition，这比单纯讨论风动能分布更有论文潜力。但我建议把 SWOT L2 sigma0-derived wind speed 从 supporting dataset 提升为 primary atmospheric response field。因为如果核心论点是 SWOT 揭示了传统卫星看不到的亚中尺度海气耦合，那么风速响应本身应该主要来自 SWOT。ASCAT 很重要，但更适合作为 coarse-scale benchmark、vector-wind reference 和 downwind/crosswind 的辅助资料，不能替代 SWOT 来支撑 2-10 km 亚中尺度风场响应。
+> 我同意把科学问题提升为 scale-dependent regime transition，这比单纯讨论风动能分布更有论文潜力。但我建议把 SWOT L2 sigma0-derived wind speed 从 supporting dataset 提升为 primary atmospheric response field。因为如果核心论点是 SWOT 揭示了传统卫星看不到的亚中尺度海气耦合，那么风速响应本身应该主要来自 SWOT。ASCAT 很重要，但更适合作为 coarse-scale benchmark 和传统产品对照，不能替代 SWOT 来支撑 2-10 km 亚中尺度风场响应。
 
 更简短地说：**题目和科学逻辑沿用组内版本，资料主次改为 SWOT wind speed 主导。**
 

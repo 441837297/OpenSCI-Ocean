@@ -41,7 +41,7 @@
 ## 主要风险
 
 - SWOT wind speed 质量需要单独核查，包括降雨污染、海况影响、sigma0 retrieval uncertainty、swath-edge effects 和陆地污染。
-- SWOT wind speed 是风速大小，不是矢量风；不能单独计算 wind stress curl/divergence 或 downwind/crosswind 分解。
+- SWOT wind speed 是风速大小，不是矢量风；初始阶段不纳入 wind stress curl/divergence 或 downwind/crosswind 分解。
 - ASCAT/ERA5/CCMP 可以辅助机制解释，但不应替代 SWOT 支撑 2-10 km 亚中尺度风速响应。
 - 西边界流区域风速动能增强可能同时受到大尺度大气强迫和海洋锋面诱导耦合影响，机制必须检验而不能预设。
 - AI 推荐文献必须人工核验后再引用。

@@ -10,7 +10,7 @@
 - 用途：主风场资料；用于计算近海面风速、风速梯度、风速动能代理量和细尺度风速响应。
 - 关键变量：wind speed / sigma0-derived wind speed、质量标记、swath 坐标、时间。
 - 派生量：`K10_SWOT = 0.5 * U10_SWOT^2`，可选 `E10_SWOT = 0.5 * rho_air * U10_SWOT^2`。
-- 注意事项：SWOT wind speed 是风速大小，不是完整矢量风；不能单独计算 wind stress curl/divergence 或 oceanic wind work。
+- 注意事项：SWOT wind speed 是风速大小，不是完整矢量风；本项目初始阶段不计算 wind stress curl/divergence 或 oceanic wind work。
 - 优先级：**必需，核心**
 
 ### 1.2 SWOT KaRIn L2 Low Rate SSH
@@ -52,7 +52,7 @@
 
 - 来源：EUMETSAT OSI SAF / KNMI / PO.DAAC
 - 候选产品：MetOp-B/C ASCAT L2 winds；MEaSUREs-OSVW wind vectors and wind stress。
-- 用途：传统卫星风场对照；中尺度一致性验证；提供矢量风用于 downwind/crosswind 分解。
+- 用途：传统卫星风场对照；中尺度一致性验证；评估传统风产品相对于 SWOT 平滑或遗漏了哪些结构。
 - 注意事项：ASCAT 原生分辨率和有效分辨率会平滑很多 SWOT 可见的亚中尺度结构，因此不应作为 2-10 km 细尺度风速响应的主证据。
 - 官方入口：
   - https://podaac.jpl.nasa.gov/dataset/ASCATC-L2-25km
