@@ -1,112 +1,126 @@
-# D0 Analysis Plan
+# D0 分析计划
 
-## Working Title
+## 工作标题
 
-SWOT view of near-surface wind kinetic energy and submesoscale air-sea coupling in western boundary current extensions
+基于 SWOT 风速、SWOT SSH 与静止卫星 SST 的尺度依赖亚中尺度海气耦合研究
 
-## Primary Research Question
+## 核心科学问题
 
-Where are submesoscale anomalies of near-surface wind kinetic energy concentrated from the SWOT perspective, why are they stronger in western boundary current regions, and can geostationary SST reveal the submesoscale air-sea coupling mechanism behind this enhancement?
+海气耦合从中尺度进入亚中尺度时，是否存在尺度依赖、衰减、饱和或 regime transition？SWOT 风速是否能揭示传统风产品被平滑或遗漏的细尺度风速响应？
 
-## Variables
+## 核心原则
 
-- SSH / SLA from SWOT KaRIn
-- SST from GOES ABI and Himawari AHI
-- SWOT wind speed and wind-speed kinetic energy proxy
-- Wind speed from ASCAT, ERA5, and/or CCMP for comparison with previous products
-- Derived SST gradient magnitude, downwind SST gradient, and crosswind SST gradient
-- Derived SSH gradient and optional SSH-gradient-based structure metrics
-- Filtered wind-speed kinetic energy anomaly
+科学问题可以采用组内修改后的“尺度依赖 / regime transition”框架，但主风场资料应当是 SWOT L2 wind speed。ASCAT、ERA5 和 CCMP 应作为对照、验证、背景场和矢量风辅助资料，而不是替代 SWOT 来支撑亚中尺度风速响应。
 
-## Candidate Diagnostics
+## 变量
 
-### 1. Collocation
+- SWOT L2 风速：`U10_SWOT`
+- SWOT 风速动能代理量：`K10_SWOT = 0.5 * U10_SWOT^2`
+- SWOT KaRIn SSH / SLA
+- Gulf Stream 区域 GOES-East ABI SST
+- Kuroshio Extension 区域 Himawari-8/9 AHI SST
+- ASCAT、ERA5、CCMP 的对照风场
+- SST 梯度强度与 SST front 方向
+- SWOT SSH 梯度及可选的动力锋面强度指标
+- `U10_SWOT`、`K10_SWOT`、SST、SSH 的不同尺度滤波异常
 
-Create matched SWOT-SST-wind samples for the Gulf Stream and Kuroshio Extension.
+## 候选诊断
 
-- Start from SWOT pass time and swath coordinates.
-- Extract nearest clear-sky geostationary SST images within candidate windows such as +/-30 minutes, +/-1 hour, and +/-3 hours.
-- Extract wind products within the same window, or interpolate gridded wind products to the SWOT/SST grid.
-- Preserve quality flags and sampling masks.
+### 1. 数据配准与质量控制
 
-### 2. Filtering And Scale Separation
+构建 Gulf Stream 和 Kuroshio Extension 区域的 SWOT 风速 / SWOT SSH / 静止卫星 SST 匹配样本。
 
-Apply spatial filtering to separate mesoscale and submesoscale bands.
+- 以 SWOT swath 时间和空间坐标为基准。
+- 从同一条 SWOT 轨道中提取 wind speed 与 SSH。
+- 在候选时间窗内匹配 GOES/Himawari 晴空 SST，例如 `±30 min`、`±1 h`、`±3 h`。
+- ASCAT、ERA5、CCMP 只作为对照产品和矢量风参考。
+- 保留 SWOT 质量标记、SST 云掩膜、降雨标记、陆地掩膜和 swath edge 指标。
 
-- Candidate mesoscale band: wavelengths larger than 100 km.
-- Candidate submesoscale band: approximately 10-100 km, adjusted for region, data resolution, SWOT noise, and filtering robustness.
-- Use sensitivity tests for cutoff scales and filter shape.
+### 2. 多尺度分解
 
-### 3. Near-Surface Wind-Speed Kinetic Energy
+对 SWOT 风速、静止卫星 SST 和 SWOT SSH 做空间滤波。
 
-Estimate a wind-speed kinetic energy proxy from SWOT wind speed:
+- 中尺度候选范围：100-500 km。
+- 过渡尺度候选范围：25-100 km。
+- SWOT 可解析的亚中尺度候选范围：2-25 km，具体取决于 SWOT 风速质量、噪声水平和有效分辨率。
+- 对滤波窗口、截止波长、沿轨/跨轨采样方式做敏感性检验。
 
-```text
-K10 = 0.5 * U10^2
-```
+对照产品不应定义本研究的最小尺度。ASCAT 可以支持它能够解析的尺度，而 SWOT wind speed 应承担细尺度风速响应的核心证据。
 
-where `U10` is near-surface wind speed. If air density is needed for dimensional energy density, use:
+### 3. SWOT 风速动能代理量
 
-```text
-E10 = 0.5 * rho_air * U10^2
-```
-
-The initial project does not estimate oceanic wind work `tau dot u_o`. The focus is the spatial distribution and submesoscale anomaly structure of wind-speed kinetic energy as seen by SWOT, and how that view differs from ASCAT, ERA5, CCMP, or other previous wind products.
-
-### 4. Air-Sea Coupling Coefficients
-
-Estimate coupling using regressions such as:
+从 SWOT wind speed 估算近海面风速动能代理量：
 
 ```text
-|grad U10| = alpha |grad SST| + residual
-|grad K10| = beta |grad SST| + residual
-K10' = gamma SST_front_metric + residual
+K10_SWOT = 0.5 * U10_SWOT^2
 ```
 
-The user-proposed core variable, wind-speed gradient versus temperature gradient, should be treated as the first simple coupling metric. Curl/divergence metrics can be added later only if vector winds from external products are introduced.
+如果需要带空气密度的能量密度形式：
 
-The mechanism test should focus on whether local wind kinetic energy enhancement is statistically tied to high-frequency SST frontal structure:
+```text
+E10_SWOT = 0.5 * rho_air * U10_SWOT^2
+```
 
-- Stronger coupling coefficient in western boundary current regions than in weak-front control regions.
-- Stronger coherence between `K10` anomalies and SST gradients at submesoscale bands in SWOT/geostationary-SST pairs than in traditional wind/SST products.
-- Consistent alignment of wind-speed gradients with SST fronts across multiple SWOT passes, rather than isolated case-study coincidences.
+本项目初始阶段不估算海洋风功输入 `tau dot u_o`。目标变量是 SWOT 观测到的近海面风速大小、风速动能及其细尺度结构。
 
-### 5. Cross-Spectral Analysis
+### 4. 尺度依赖耦合系数
 
-Use co-spectrum, coherence, and phase between:
+主诊断使用 SWOT 风速：
 
-- SST gradient and wind-speed gradient
-- SST gradient and wind-speed kinetic energy anomaly
-- SSH gradient and wind-speed kinetic energy anomaly
-- SWOT wind-speed kinetic energy and previous-product wind-speed kinetic energy
+```text
+|grad U10_SWOT| = alpha(lambda) |grad SST_geo| + residual
+|grad K10_SWOT| = beta(lambda) |grad SST_geo| + residual
+K10_SWOT' = gamma(lambda) SST_front_metric + residual
+```
 
-This step tests whether the strongest coupling occurs at overlapping spatial scales rather than only in pointwise regressions.
+其中 `lambda` 表示空间尺度或滤波截止波长。核心检验是 `alpha(lambda)`、`beta(lambda)`、相干性或相位是否从中尺度到亚中尺度发生 break、plateau、decay 或 phase shift。
 
-## Pilot Workflow
+辅助矢量风诊断可在 ASCAT 或 ERA5 可解析尺度上进行：
 
-1. Select one or more SWOT passes over the Gulf Stream and Kuroshio Extension, prioritizing strong SST-front conditions in GOES/Himawari imagery.
-2. Download or access matching SST and wind data.
-3. Produce a first collocation figure for each region.
-4. Compute SST gradients, SSH gradients, wind-speed gradients, and `K10` anomalies.
-5. Compare SWOT-derived `K10` structures against previous wind products.
-6. Estimate regional air-sea coupling coefficients and compare them with weaker-front control regions.
-7. Run a sensitivity test for filtering length scale and collocation time window.
-8. Decide whether the D1 manuscript should remain a two-region mechanism study or expand to a global hotspot survey.
+```text
+curl(tau) = a crosswind_grad(SST) + residual
+div(tau) = b downwind_grad(SST) + residual
+```
 
-## Figure Plan
+这些诊断有助于机制解释，但不应被表述为 SWOT 2-10 km 尺度风速响应的直接证据。
 
-1. Map of candidate study regions and SWOT pass coverage.
-2. Gulf Stream example: SST front, SWOT SSH gradient, wind-speed gradient.
-3. Kuroshio Extension example: SST front, SWOT SSH gradient, wind-speed gradient.
-4. Scatter/regression plot for wind-speed gradient versus SST gradient.
-5. Cross-spectral coherence plot showing whether wind kinetic energy anomalies and SST fronts align at submesoscales.
-6. Optional global hotspot map of SWOT near-surface wind kinetic energy anomaly and its difference from previous products.
+### 5. 谱分析与相干分析
 
-## Human Review Priorities
+计算以下变量之间的互谱、相干和相位：
 
-- Verify whether the selected wind product can support the claimed spatial scale.
-- Keep the diagnostic focused on near-surface wind-speed kinetic energy, not oceanic wind-work input.
-- Separate "where is wind kinetic energy strong?" from "why is it strong?" so the coupling mechanism is tested rather than assumed.
-- Check whether coupling signs match known physical mechanisms.
-- Test sensitivity to rain/cloud flags, land contamination, and diurnal warming.
-- Keep global claims separate from regional pilot evidence unless sampling is sufficient.
+- `U10_SWOT` 或 `K10_SWOT` 与静止卫星 SST。
+- `grad U10_SWOT` 或 `grad K10_SWOT` 与 `grad SST_geo`。
+- `K10_SWOT` 异常与 SWOT SSH 梯度。
+- SWOT wind speed 与 ASCAT/ERA5/CCMP 风场，用于量化传统产品平滑或遗漏的结构。
+
+核心图应展示耦合系数或相干曲线是否在亚中尺度出现转折、平台、衰减或相位变化。
+
+## 试验工作流
+
+1. 选择 1 条或多条穿过 Gulf Stream 强 SST front 的 SWOT swath。
+2. 配准 SWOT wind speed、SWOT SSH 和 GOES-East SST。
+3. 绘制第一个个例图：`U10_SWOT`、`K10_SWOT`、SST front 和 SSH gradient。
+4. 与 ASCAT、ERA5、CCMP 对比，展示传统产品能解析什么、遗漏什么。
+5. 基于 SWOT wind speed 和 GOES SST 计算多尺度耦合系数。
+6. 在 Kuroshio Extension 区域使用 Himawari SST 重复分析。
+7. 加入弱锋面控制区，检验信号是否特异于西边界流区域。
+8. 根据结果决定 D1 稿件侧重 regime transition、scale-dependent weakening，还是 SWOT-observed fine-scale wind response。
+
+## 图件计划
+
+1. Gulf Stream 和 Kuroshio Extension 区域 SWOT swath 与 SST front 覆盖图。
+2. SWOT wind speed / `K10_SWOT`、静止卫星 SST front 和 SWOT SSH gradient 的个例图。
+3. SWOT 与 ASCAT/ERA5/CCMP 对比图，突出传统产品的平滑效应。
+4. 基于 SWOT wind speed 和静止卫星 SST 的尺度依赖耦合系数曲线。
+5. SWOT wind speed、SST front 与 SWOT SSH gradient 的相干和相位谱。
+6. Gulf Stream 与 Kuroshio Extension 的对比图。
+7. 弱锋面控制区结果。
+
+## 人工审查重点
+
+- 核查 SWOT wind speed 质量、降雨污染、海况影响和 swath edge artifacts。
+- 细尺度结论必须以 SWOT wind speed 为主风场证据。
+- ASCAT、ERA5、CCMP 只能在其可辩护尺度内使用。
+- 区分风速动能与海洋风功输入。
+- 把 regime transition 作为待检验假说，而不是预设结论。
+- AI 建议的所有参考文献必须人工核验后再引用。

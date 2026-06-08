@@ -1,102 +1,100 @@
-# Data Sources For P01
+# P01 数据源说明
 
-This file lists candidate public datasets for a D0 feasibility check. Raw data should not be committed to the repository.
+本文档列出 D0 可行性检查所需的候选公开数据。原始数据不应提交到仓库；仓库中只保留下载脚本、访问说明、质量控制说明和处理后的图表结果。
 
-## Primary Ocean Data
+## 一、核心观测数据
 
-### SWOT KaRIn Level-2 Low Rate SSH
+### 1.1 SWOT L2 sigma0-derived wind speed
 
-- Provider: NASA PO.DAAC / CNES / SWOT mission
-- Candidate product: SWOT_L2_LR_SSH_D and sub-collections such as Basic, Expert, WindWave, and Unsmoothed
-- Coverage: global ocean swaths; science phase begins after the 2023 fast-sampling/calibration phase
-- Variables of interest: sea surface height, sea surface height anomaly, significant wave height, wind speed, quality flags, swath coordinates
-- Access route: PO.DAAC / Earthdata
-- Notes: SSH gradients can support surface geostrophic-current proxies, but submesoscale interpretation requires filtering and quality control.
+- 来源：SWOT / PO.DAAC
+- 用途：主风场资料；用于计算近海面风速、风速梯度、风速动能代理量和细尺度风速响应。
+- 关键变量：wind speed / sigma0-derived wind speed、质量标记、swath 坐标、时间。
+- 派生量：`K10_SWOT = 0.5 * U10_SWOT^2`，可选 `E10_SWOT = 0.5 * rho_air * U10_SWOT^2`。
+- 注意事项：SWOT wind speed 是风速大小，不是完整矢量风；不能单独计算 wind stress curl/divergence 或 oceanic wind work。
+- 优先级：**必需，核心**
 
-Official entry:
-https://podaac.jpl.nasa.gov/dataset/SWOT_L2_LR_SSH_D
+### 1.2 SWOT KaRIn L2 Low Rate SSH
 
-## Primary SST Data
+- 来源：NASA PO.DAAC / CNES / SWOT mission
+- 候选产品：`SWOT_L2_LR_SSH_D` 及 Basic、Expert、WindWave、Unsmoothed 等相关子产品。
+- 用途：海洋动力结构；用于识别 SSH 梯度、fronts、eddies、filaments、strain 相关结构，并作为耦合 regime boundary 的动力锚点。
+- 关键变量：sea surface height、sea surface height anomaly、quality flags、swath coordinates。
+- 注意事项：SSH 梯度可用于刻画细尺度动力结构，但亚中尺度解释需要滤波、误差控制和质量标记筛选。
+- 官方入口：https://podaac.jpl.nasa.gov/dataset/SWOT_L2_LR_SSH_D
+- 优先级：**必需，核心**
 
-### GOES ABI SST / NOAA ACSPO
+### 1.3 GOES ABI SST / NOAA ACSPO
 
-- Provider: NOAA CoastWatch / NOAA STAR
-- Candidate product: ACSPO Global SST from ABI, including GOES-East and GOES-West
-- Region: Americas and adjacent oceans; relevant for the Gulf Stream
-- Variables of interest: SST, quality flags, clear-sky mask, SSES uncertainty, reference SST differences
-- Notes: High temporal sampling is central to the mechanism test because it can resolve frontal structure and short-time-scale SST variability that may explain SWOT wind kinetic energy anomalies. Cloud masking and diurnal warming must be handled.
+- 来源：NOAA CoastWatch / NOAA STAR
+- 候选产品：ACSPO Global SST from ABI，包括 GOES-East 和 GOES-West。
+- 区域：美洲及邻近海域，重点服务 Gulf Stream。
+- 用途：高频 SST front；计算 SST 梯度、front 方向和热力锋面强度。
+- 关键变量：SST、quality flags、clear-sky mask、SSES uncertainty。
+- 注意事项：高时间分辨率是机制检验的关键，但需要处理云、降雨和日变化偏差。
+- 官方入口：
+  - https://coastwatch.noaa.gov/cwn/processing-algorithms/acspo.html
+  - https://coastwatch.noaa.gov/cwn/products/acspo-global-sst-abi.html
+- 优先级：**必需，核心**
 
-Official entries:
-https://coastwatch.noaa.gov/cwn/processing-algorithms/acspo.html
-https://coastwatch.noaa.gov/cwn/products/acspo-global-sst-abi.html
+### 1.4 Himawari-8/9 AHI SST
 
-### Himawari-8/9 AHI SST
+- 来源：JAXA P-Tree / JAXA Himawari Monitor，也可通过 GHRSST/ACSPO 相关公开入口获取。
+- 区域：西北太平洋，重点服务 Kuroshio Extension。
+- 用途：高频 SST front；与 SWOT pass 配准，解释 Kuroshio Extension 区域风速动能增强是否与亚中尺度 SST-front coupling 有关。
+- 关键变量：SST、quality flags、cloud mask。
+- 注意事项：需要评估云筛选、晴空采样偏差和日变化影响。
+- 官方入口：https://earth.jaxa.jp/en/data/2529/index.html
+- 优先级：**必需，核心**
 
-- Provider: JAXA P-Tree / JAXA Himawari Monitor, with related GHRSST/ACSPO products available through other public portals
-- Region: western Pacific; relevant for the Kuroshio Extension
-- Variables of interest: SST, quality flags, cloud mask
-- Notes: High-frequency SST enables frontal evolution and collocation with SWOT passes. It is required to test whether wind kinetic energy enhancement near the Kuroshio Extension can be linked to submesoscale SST-front coupling. Clear-sky sampling bias must be evaluated.
+## 二、辅助与对照风场
 
-Official entry:
-https://earth.jaxa.jp/en/data/2529/index.html
+### 2.1 ASCAT ocean vector winds
 
-## Wind Data For SWOT View And Comparison
+- 来源：EUMETSAT OSI SAF / KNMI / PO.DAAC
+- 候选产品：MetOp-B/C ASCAT L2 winds；MEaSUREs-OSVW wind vectors and wind stress。
+- 用途：传统卫星风场对照；中尺度一致性验证；提供矢量风用于 downwind/crosswind 分解。
+- 注意事项：ASCAT 原生分辨率和有效分辨率会平滑很多 SWOT 可见的亚中尺度结构，因此不应作为 2-10 km 细尺度风速响应的主证据。
+- 官方入口：
+  - https://podaac.jpl.nasa.gov/dataset/ASCATC-L2-25km
+  - https://podaac.jpl.nasa.gov/MEaSUREs-OSVW
+- 优先级：推荐
 
-### SWOT wind speed / backscatter-related wind information
+### 2.2 ERA5
 
-- Provider: SWOT / PO.DAAC
-- Use: primary same-swath estimate of near-surface wind speed and wind-speed kinetic energy proxy
-- Derived metric: `K10 = 0.5 * U10^2`, with optional `E10 = 0.5 * rho_air * U10^2`
-- Limitation: SWOT wind speed is primarily a wind-speed magnitude product; it does not by itself provide vector wind stress or oceanic wind-work input.
+- 来源：Copernicus Climate Data Store / ECMWF
+- 用途：大尺度背景风、天气尺度控制、边界层背景、稳定度和敏感性检验。
+- 关键变量：10 m wind speed / components、surface fluxes、boundary-layer diagnostics。
+- 注意事项：有效分辨率不足以支撑真正亚中尺度风速梯度结论。
+- 官方入口：https://cds.climate.copernicus.eu/
+- 优先级：推荐
 
-### ASCAT Ocean Vector Winds
+### 2.3 CCMP ocean surface winds
 
-- Provider: EUMETSAT OSI SAF / KNMI, distributed through PO.DAAC
-- Candidate products: MetOp-B/C ASCAT L2 winds; MEaSUREs-OSVW wind vectors and wind stress
-- Variables of interest: 10 m wind speed and vector winds
-- Notes: Useful as a previous satellite wind-product comparison. Native resolution may smooth the submesoscale structures that SWOT can reveal, making it important for the "what did traditional satellites miss?" question.
+- 来源：Remote Sensing Systems / NASA MEaSUREs / PO.DAAC
+- 用途：多源融合传统风产品对照；提供背景风场和大尺度风速结构。
+- 注意事项：网格化融合会平滑最细尺度结构，主要用于评估 SWOT 与传统产品的差异。
+- 官方入口：https://podaac.jpl.nasa.gov/MEaSUREs-CCMP
+- 优先级：可选
 
-Official entries:
-https://podaac.jpl.nasa.gov/dataset/ASCATC-L2-25km
-https://podaac.jpl.nasa.gov/MEaSUREs-OSVW
+## 三、试验区域
 
-### ERA5
+### 3.1 Gulf Stream
 
-- Provider: Copernicus Climate Data Store / ECMWF
-- Variables of interest: 10 m wind speed and components, surface fluxes, boundary-layer diagnostics
-- Use: gridded background comparison and sensitivity product
-- Limitation: effective resolution may be insufficient for true submesoscale wind gradients.
+- 参考范围：30-45 N, 80-40 W
+- 数据组合：SWOT wind speed + SWOT KaRIn SSH + GOES-East/West ABI SST + ASCAT/ERA5/CCMP 对照风场。
+- 科学价值：强 SST front、强海气边界层响应、活跃中尺度/亚中尺度过程。
 
-Official entry:
-https://cds.climate.copernicus.eu/
+### 3.2 Kuroshio Extension
 
-### CCMP Ocean Surface Winds
+- 参考范围：28-45 N, 135-170 E
+- 数据组合：SWOT wind speed + SWOT KaRIn SSH + Himawari AHI SST + ASCAT/ERA5/CCMP 对照风场。
+- 科学价值：典型西边界流延伸体，具有强 SST 梯度和活跃的涡-平均流相互作用。
 
-- Provider: Remote Sensing Systems / NASA MEaSUREs, distributed through PO.DAAC
-- Use: gridded comparison product and background wind context
-- Limitation: gridded analysis may be too smooth for the finest SWOT/SST scales.
+## 四、D0 待回答的数据可行性问题
 
-Official entry:
-https://podaac.jpl.nasa.gov/MEaSUREs-CCMP
-
-## Pilot Regions
-
-### Gulf Stream
-
-- Approximate box: 30-45 N, 80-40 W
-- Data combination: SWOT wind speed + SWOT KaRIn SSH + GOES-East/West ABI SST + ASCAT/ERA5/CCMP comparison winds
-- Scientific value: strong SST front, strong atmospheric boundary-layer response, energetic mesoscale/submesoscale variability.
-
-### Kuroshio Extension
-
-- Approximate box: 28-45 N, 135-170 E
-- Data combination: SWOT wind speed + SWOT KaRIn SSH + Himawari AHI SST + ASCAT/ERA5/CCMP comparison winds
-- Scientific value: western boundary current extension, strong SST gradients, energetic eddy-mean-flow interactions.
-
-## Open Feasibility Questions
-
-1. What is the best time-collocation window between SWOT, geostationary SST, and wind products?
-2. How does SWOT wind-speed kinetic energy differ from ASCAT/ERA5/CCMP estimates in western boundary current extensions?
-3. Are stronger wind kinetic energy anomalies in western boundary currents statistically linked to stronger geostationary-SST coupling coefficients?
-4. Which length-scale band should define "submesoscale" for SSH/SST/wind diagnostics in each region?
-5. How sensitive are coupling coefficients to cloud masking, diurnal warming, rain contamination, and SWOT quality flags?
+1. SWOT wind speed 在 Gulf Stream 和 Kuroshio Extension 强锋面区域的质量是否足以支持亚中尺度诊断？
+2. SWOT wind speed 与 GOES/Himawari SST 的最佳时间配准窗口是多少？
+3. SWOT wind-speed kinetic energy 与 ASCAT/ERA5/CCMP 在西边界流区域的差异主要来自真实细结构，还是采样/质量控制差异？
+4. 西边界流区域更强的风速动能异常是否与更强的静止卫星 SST 耦合系数统计相关？
+5. 不同区域应该使用哪个尺度范围定义“亚中尺度”？
+6. 耦合系数对云筛选、日变化、降雨污染和 SWOT 质量标记有多敏感？

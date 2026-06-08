@@ -1,96 +1,175 @@
-# P01: SWOT View of Near-Surface Wind Kinetic Energy and Submesoscale Air-Sea Coupling
+# P01: Scale-Dependent Submesoscale Air-Sea Coupling Revealed by SWOT Wind Speed
 
-> This project asks how near-surface wind-speed kinetic energy seen by SWOT is distributed globally, why it is enhanced in western boundary current regions, and whether geostationary SST can reveal submesoscale air-sea coupling processes that traditional wind products miss.
+> Does air-sea coupling undergo a scale-dependent transition from mesoscale to submesoscale, and can SWOT wind speed, SWOT SSH, and geostationary SST reveal fine-scale wind responses that traditional wind products cannot resolve?
 
 ## Status
 
 | Item | Content |
 |---|---|
-| Current stage | D0 Explore |
+| Current stage | D0 Explore (candidate) |
 | Lead / proposer | Kris19999 |
-| Target journal | TBD; candidate journals include Geophysical Research Letters, Journal of Geophysical Research: Oceans, Ocean Modelling, and Remote Sensing of Environment |
+| Target journal | Nature Communications (high-impact target); GRL or JGR: Oceans as realistic fallback targets |
 | Start date | 2026-06-05 |
 | Expected submission | TBD |
 
+## D0 Priority Checklist
+
+- [ ] Verify SWOT L2 sigma0-derived wind speed quality in the Gulf Stream and Kuroshio Extension pilot boxes.
+- [ ] Download SWOT KaRIn L2 SSH for the same swaths and characterize SSH gradients, fronts, filaments, and eddy-edge structures.
+- [ ] Download concurrent GOES-East and Himawari SST; quantify clear-sky collocation with SWOT passes.
+- [ ] Compute the first scale-dependent coupling diagnostics using SWOT wind speed and geostationary SST, not ASCAT as the primary wind field.
+- [ ] Use ASCAT, ERA5, and CCMP as coarse-scale benchmarks and vector-wind references, especially for scales that they can actually resolve.
+- [ ] Search and verify recent literature on SWOT-derived wind speed and submesoscale air-sea coupling.
+
 ## Scientific Question
 
-Where are submesoscale anomalies of near-surface wind kinetic energy concentrated in the global ocean from the SWOT perspective, why are they stronger in western boundary current regions, and can this enhancement be explained by submesoscale air-sea coupling over sharp SST fronts?
+The revised scientific framing is stronger than a simple global map of wind kinetic energy: this project asks whether air-sea coupling changes character from mesoscale to submesoscale. The central observational question is whether SWOT can reveal fine-scale wind-speed responses to SST fronts that are smoothed or missed by traditional scatterometer and reanalysis products.
 
-The central working idea is that western boundary current regions are already expected to host strong near-surface wind kinetic energy, but the mechanism and fine-scale structure may be underestimated by traditional wind products. By combining SWOT wind speed, SWOT KaRIn SSH, high-frequency geostationary SST, and legacy wind products, the project can test whether enhanced wind kinetic energy is organized around sharp SST fronts and SSH-resolved submesoscale structures. The Gulf Stream and Kuroshio Extension are natural test regions because they combine strong SST fronts, energetic mesoscale and submesoscale activity, and known atmosphere responses to oceanic thermal fronts.
+The mesoscale framework for SST-wind coupling describes a quasi-linear response: warm SST anomalies destabilize the atmospheric boundary layer and accelerate near-surface winds. The open question is what happens when the ocean contains sharp submesoscale fronts and filaments at O(2-50 km) scales. Three outcomes are possible:
 
-The key scientific contribution is not only to map the distribution of SWOT-derived wind kinetic energy, but to explain why western boundary current hotspots are strong. The proposed explanation is that submesoscale SST fronts and ocean surface structures modulate near-surface winds through air-sea coupling, producing fine-scale wind kinetic energy anomalies that are difficult to resolve in conventional scatterometer or reanalysis products.
+1. **Continuity**: the mesoscale coupling relationship extends smoothly to finer scales.
+2. **Saturation or decay**: the atmospheric boundary layer cannot adjust to the finest SST structures, so coupling weakens.
+3. **Regime transition**: sharp fronts, filaments, and dynamically intense structures trigger a different boundary-layer response, visible as changes in coupling slope, coherence, phase, or wind-speed kinetic energy anomalies.
+
+The Gulf Stream and Kuroshio Extension are the primary pilot regions because they combine strong SST fronts, energetic submesoscale ocean structures, and previously documented ocean-atmosphere coupling. The key new element is that SWOT wind speed may resolve wind structures at scales where ASCAT, CCMP, and ERA5 are too smooth.
+
+## Core Position After Discussion
+
+The scale-dependent regime-transition framing is scientifically attractive and should be retained. However, the primary atmospheric response field should be **SWOT L2 wind speed**, not ASCAT.
+
+ASCAT is valuable, but it should not replace SWOT as the main wind dataset for this project. ASCAT provides vector winds and therefore helps with downwind/crosswind decomposition at coarse scales, but its effective resolution is too coarse to serve as the core evidence for submesoscale wind responses. If the story is that SWOT reveals submesoscale air-sea coupling missed by traditional satellites, SWOT wind speed must be central.
 
 ## Hypotheses
 
-1. SWOT-derived near-surface wind kinetic energy anomalies are expected to be enhanced in western boundary current extensions, especially the Gulf Stream and Kuroshio Extension.
-2. The enhancement is hypothesized to be partly caused by submesoscale air-sea coupling over sharp SST fronts, not only by large-scale atmospheric forcing.
-3. Regions with strong wind-speed kinetic energy anomalies should have strong geostationary SST gradients and SWOT SSH gradients, suggesting coupling between oceanic submesoscale structures and atmospheric boundary-layer adjustment.
-4. SWOT may reveal finer-scale wind-speed kinetic energy structures than traditional scatterometer or reanalysis wind products, particularly near fronts, filaments, and eddy edges.
-5. Coupling metrics based on wind-speed gradients versus SST gradients, and cross-spectral coherence between wind-speed kinetic energy, SST, and SSH gradients, can distinguish frontal coupling signals from background wind variability.
+1. SWOT wind speed reveals submesoscale near-surface wind-speed and wind-kinetic-energy structures that are weakened or absent in ASCAT, CCMP, and ERA5.
+2. The scale-dependent air-sea coupling coefficient changes from mesoscale to submesoscale, especially in the Gulf Stream and Kuroshio Extension.
+3. The strongest SWOT wind-speed kinetic energy anomalies are tied to sharp geostationary-SST fronts and SWOT SSH-gradient structures.
+4. SWOT SSH gradients help identify the dynamical ocean structures that set the regime boundary, while GOES/Himawari SST provides the thermal frontal forcing.
+5. ASCAT vector winds can support coarse-scale direction-based diagnostics, but sub-25-km wind-response claims should come primarily from SWOT wind speed.
 
 ## Data
 
-All candidate datasets are public and reproducible. Raw data should not be committed to the repository; only download scripts, access notes, and processed figure outputs should be tracked.
+All datasets are public. Raw data must not be committed; only download scripts, access notes, quality-control notes, and processed outputs should be tracked.
 
-- SWOT KaRIn Level-2 Low Rate SSH: global SSH / SSH anomaly on swath grids from PO.DAAC.
-- GOES ABI SST / NOAA ACSPO SST: high-frequency SST over the Americas and the Gulf Stream sector.
-- Himawari-8/9 AHI SST: high-frequency SST over the western Pacific and Kuroshio Extension sector.
-- Public wind products, used as comparison and sensitivity datasets:
-  - SWOT L2 wind speed / backscatter-derived wind information where appropriate.
-  - ASCAT ocean vector winds, especially MEaSUREs-OSVW and MetOp ASCAT, for comparison with existing satellite wind views.
-  - ERA5 10 m winds as a gridded background and sensitivity product.
-  - CCMP ocean surface winds as an optional gridded comparison product.
+### Primary observational triad
+
+- **SWOT L2 sigma0-derived wind speed**: primary atmospheric response field. Used to quantify wind-speed anomalies, wind-speed gradients, and near-surface wind kinetic energy proxy at SWOT swath resolution.
+- **SWOT KaRIn L2 Low Rate SSH**: primary ocean dynamic structure field. Used to identify SSH gradients, fronts, eddies, filaments, strain-related structures, and dynamical conditioning of coupling regimes.
+- **Geostationary SST**: primary thermal-frontal field.
+  - GOES-East ABI SST / NOAA ACSPO for the Gulf Stream.
+  - Himawari-8/9 AHI SST for the Kuroshio Extension.
+
+### Supporting datasets
+
+- **ASCAT vector winds**: coarse-scale benchmark and vector-wind reference. Useful for downwind/crosswind decomposition only at ASCAT-resolvable scales.
+- **ERA5 10 m winds and surface fields**: background atmospheric state, synoptic filtering, stability context, and sensitivity tests.
+- **CCMP ocean surface winds**: gridded traditional wind-product comparison.
 
 ## Method
 
-The analysis should start from two regional pilot domains before attempting a global synthesis:
+### Pilot regions
 
-- Gulf Stream: GOES-East SST plus SWOT KaRIn SSH and public wind products.
-- Kuroshio Extension: Himawari SST plus SWOT KaRIn SSH and public wind products.
+- **Gulf Stream**: GOES-East SST + SWOT wind speed + SWOT SSH, with ASCAT/ERA5/CCMP as comparison products.
+- **Kuroshio Extension**: Himawari SST + SWOT wind speed + SWOT SSH, with ASCAT/ERA5/CCMP as comparison products.
 
-Initial diagnostics:
+### Step 1: Collocation and quality control
 
-1. Collocate SWOT swaths, geostationary SST, and wind products in space and time.
-2. Derive along-swath SSH gradients from SWOT as indicators of fine-scale ocean structures.
-3. Apply scale separation to isolate mesoscale and submesoscale bands, with sensitivity tests for filtering length scales.
-4. Estimate near-surface wind-speed kinetic energy proxy from SWOT wind speed, for example `K10 = 0.5 * U10^2`, and analyze its anomaly and filtered components.
-5. Compare SWOT-derived wind-speed kinetic energy structures with ASCAT, ERA5, and CCMP to identify what is new in the SWOT view and what traditional products may miss.
-6. Compute air-sea coupling coefficients, especially regression slopes between wind-speed gradients and SST gradients, using GOES and Himawari SST for high-frequency frontal structure.
-7. Use co-spectrum, coherence, and phase diagnostics to test whether SST fronts, SSH gradients, wind-speed gradients, and wind kinetic energy anomalies are scale aligned at submesoscales.
-8. Compare Gulf Stream and Kuroshio Extension results against weaker-gradient control regions.
+Collocate SWOT wind speed, SWOT SSH, geostationary SST, and comparison wind products. Apply quality flags for SWOT, cloud masks for SST, rain/land contamination checks, and time-window sensitivity tests.
+
+### Step 2: Multi-scale decomposition
+
+Filter SWOT wind speed, SST, and SSH into scale bands such as 10, 20, 50, 100, 200, and 500 km. The key point is to avoid letting the coarser comparison products define the finest scale that SWOT can test.
+
+### Step 3: SWOT-based wind-speed response diagnostics
+
+Use SWOT wind speed as the core wind field:
+
+```text
+K10_SWOT = 0.5 * U10_SWOT^2
+```
+
+Primary diagnostics:
+
+- `U10_SWOT'` and `K10_SWOT'` anomalies.
+- `|grad U10_SWOT|` and `|grad K10_SWOT|`.
+- Spatial collocation with `|grad SST_geo|` and `|grad SSH_SWOT|`.
+- Differences between SWOT-resolved structures and ASCAT/ERA5/CCMP structures.
+
+### Step 4: Scale-dependent coupling coefficients
+
+Primary SWOT-based coefficients:
+
+```text
+|grad U10_SWOT| = alpha(lambda) |grad SST_geo| + residual
+|grad K10_SWOT| = beta(lambda) |grad SST_geo| + residual
+K10_SWOT' = gamma(lambda) SST_front_metric + residual
+```
+
+The coefficients should be estimated as functions of wavelength or filter cutoff `lambda`. A break, plateau, or phase shift in these curves would indicate scale-dependent coupling or a possible regime transition.
+
+Secondary vector-wind coefficients, using ASCAT or ERA5 only at resolvable scales:
+
+```text
+curl(tau) = a crosswind_grad(SST) + residual
+div(tau) = b downwind_grad(SST) + residual
+```
+
+These are useful but should not be used as evidence for 2-10 km SWOT-scale wind responses.
+
+### Step 5: Spectral and coherence analysis
+
+Compute co-spectrum, coherence, and phase between:
+
+- SWOT wind-speed gradients and geostationary SST gradients.
+- SWOT wind kinetic energy anomalies and geostationary SST fronts.
+- SWOT wind kinetic energy anomalies and SWOT SSH gradients.
+- SWOT wind speed and traditional wind products, to quantify what traditional products miss.
+
+### Step 6: Controls and interpretation
+
+Repeat the analysis in weaker-front regions to test whether the scale-dependent coupling signature is specific to western boundary currents. Interpret results cautiously because wind kinetic energy can be affected by both large-scale atmospheric forcing and ocean-front-induced boundary-layer adjustment.
 
 ## Expected Outputs
 
-- A D0 feasibility note with verified data access routes and literature map.
-- Reproducible Python scripts for collocation, filtering, wind-speed kinetic energy proxy, coupling coefficients, and cross-spectral diagnostics.
+- A D0 feasibility note on SWOT wind speed quality, collocation statistics, and initial coupling diagnostics.
+- A data-requirements and discussion note in `literature/`.
+- Reproducible scripts for collocation, filtering, SWOT wind kinetic energy, coupling coefficients, and spectral diagnostics.
 - Candidate figures:
-  1. SWOT swath coverage overlapping GOES/Himawari SST in the two pilot domains.
-  2. Spatial distribution of filtered SSH/SST gradients and wind-speed kinetic energy anomalies.
-  3. Regression-based coupling coefficients between wind-speed gradients and geostationary SST gradients for Gulf Stream and Kuroshio Extension.
-  4. Cross-spectral coherence between SST gradients, SSH gradients, wind-speed gradients, and wind kinetic energy anomalies.
-  5. A global/regional hotspot map comparing SWOT wind kinetic energy anomalies with previous wind products, highlighting fine-scale structures missing from traditional observations.
+  1. SWOT wind speed / `K10_SWOT` structures over GOES/Himawari SST fronts.
+  2. Comparison of SWOT wind speed with ASCAT/ERA5/CCMP in the same region.
+  3. Scale-dependent coupling coefficient curves based on SWOT wind speed and geostationary SST.
+  4. Coherence and phase spectra between SWOT wind speed, SST fronts, and SWOT SSH gradients.
+  5. Gulf Stream versus Kuroshio Extension comparison.
+  6. Control-region null or weak-coupling result.
 
-## Feasibility And Risks
+## Feasibility and Risks
 
-- SWOT has excellent spatial resolution but limited revisit time, so collocation windows and sampling bias must be handled carefully.
-- Geostationary SST is cloud-limited; composites or quality-controlled clear-sky sampling are required.
-- This project focuses on near-surface wind-speed kinetic energy, not oceanic wind work `tau dot u_o`.
-- SWOT wind speed gives wind-speed magnitude, so it can support `0.5 * U10^2`-type diagnostics but not vector wind stress curl/divergence unless external wind direction is added.
-- Scatterometer and reanalysis winds may be too coarse for some submesoscale diagnostics; they should be used mainly to evaluate how the SWOT view differs from previous products.
-- The mechanism claim must be tested carefully: western boundary current wind kinetic energy can reflect both atmospheric forcing and ocean-front-induced coupling.
-- Geostationary SST is essential for the mechanism test because it can resolve high-frequency frontal structure that may be smeared in daily or coarse SST products.
-- Causal language should be conservative: coupling signals can be identified, but mechanism attribution requires careful controls.
-- AI-generated references must be manually verified before citation.
+**Critical risks:**
+
+- SWOT wind speed quality and rain/sea-state contamination must be checked carefully before making submesoscale claims.
+- SWOT provides wind speed magnitude, not a full vector wind. Direction-based diagnostics require ASCAT, ERA5, or another vector-wind source and should be treated as coarse-scale support.
+- Collocation between SWOT, clear-sky geostationary SST, and comparison wind products may be limited by clouds and sampling.
+
+**Scientific risks:**
+
+- A regime transition may not exist; the coupling may be continuous, weak, or dominated by atmospheric background variability.
+- Western boundary current wind kinetic energy may be strong because of both atmospheric forcing and ocean-front coupling. The mechanism must be tested rather than assumed.
+- Traditional products may differ from SWOT because of resolution and sampling, not necessarily because SWOT is always more accurate.
+
+**Pivot strategy:**
+
+If a clear regime transition is not detected, the project can still become a GRL/JGR-style paper on how SWOT changes the observed scale dependence of wind-SST coupling and reveals fine-scale wind-speed kinetic energy structures missed by traditional products.
 
 ## Contributor Role
 
-The proposer has worked on ocean submesoscale processes from the master's stage to the present, is affiliated with a National Science Fund for Distinguished Young Scholars team, and has published three related papers in journals including JGR and Ocean Modelling. The proposer can contribute domain-expert AI review, physical interpretation, figure processing, reference verification, and manuscript-level scientific correction, especially for submesoscale dynamics and submesoscale air-sea interaction.
+The proposer has worked on ocean submesoscale processes from the master's stage to the present, is affiliated with a National Science Fund for Distinguished Young Scholars team, and has published three related papers in JGR and Ocean Modelling. The proposer can contribute domain-expert AI review, physical interpretation, figure processing, reference verification, and manuscript-level scientific correction, especially for submesoscale dynamics and submesoscale air-sea interaction.
 
 ## Progress Log
 
 | Date | Stage | Content | Output |
 |---|---|---|---|
-| 2026-06-05 | D0 | Drafted local topic proposal and workflow scaffold | README, data source notes, analysis plan, literature seed, AI log |
+| 2026-06-05 | D0 | Initial topic proposal: SWOT wind kinetic energy distribution and coupling | Original local proposal |
+| 2026-06-08 | D0 | Revised after group discussion: retain scale-dependent regime-transition question, restore SWOT wind speed as the primary atmospheric response field | Updated README and Chinese discussion note |
 
 ## AI Interaction Log
 
@@ -98,4 +177,4 @@ See `logs/2026-06-05_D0_topic_proposal.md`.
 
 ## References
 
-See `literature/literature_seed.md` for a seed list. Each reference must be manually checked before being moved into the manuscript bibliography.
+See `literature/literature_seed.md` and `literature/P01_discussion_note_zh.md`. All references must be manually verified before manuscript use.
