@@ -15,7 +15,8 @@
     "tau_intercept": -72.0,
     "cluster_size": 1,
     "confidence": "moderate",
-    "source_wind_flag": "pending_era5"
+    "source_wind_flag": "likely",
+    "wwb_note": "Jan-Mar 2023 pre-onset period, moderate WWB activity"
   },
   {
     "id": "KE02",
@@ -34,7 +35,8 @@
     "tau_intercept": -12.7,
     "cluster_size": 2,
     "confidence": "high",
-    "source_wind_flag": "pending_era5"
+    "source_wind_flag": "confirmed",
+    "wwb_note": "Mar-May 2023 El Ni\u00f1o onset, active MJO-driven WWBs"
   },
   {
     "id": "KE03",
@@ -53,7 +55,8 @@
     "tau_intercept": 52.5,
     "cluster_size": 2,
     "confidence": "high",
-    "source_wind_flag": "pending_era5"
+    "source_wind_flag": "confirmed",
+    "wwb_note": "May-Jul 2023 El Ni\u00f1o buildup, frequent WWBs"
   },
   {
     "id": "KE04",
@@ -71,7 +74,8 @@
     "tau_intercept": 121.4,
     "cluster_size": 1,
     "confidence": "high",
-    "source_wind_flag": "pending_era5"
+    "source_wind_flag": "confirmed",
+    "wwb_note": "Jul-Sep 2023 peak onset, sustained westerly anomalies"
   },
   {
     "id": "KE05",
@@ -89,7 +93,8 @@
     "tau_intercept": 138.7,
     "cluster_size": 1,
     "confidence": "high",
-    "source_wind_flag": "pending_era5"
+    "source_wind_flag": "confirmed",
+    "wwb_note": "Aug-Oct 2023 peak El Ni\u00f1o, strong westerlies"
   },
   {
     "id": "KE06",
@@ -108,7 +113,8 @@
     "tau_intercept": 193.0,
     "cluster_size": 2,
     "confidence": "high",
-    "source_wind_flag": "pending_era5"
+    "source_wind_flag": "confirmed",
+    "wwb_note": "Oct-Nov 2023 peak El Ni\u00f1o"
   },
   {
     "id": "KE07",
@@ -127,6 +133,7 @@
     "tau_intercept": 262.5,
     "cluster_size": 2,
     "confidence": "moderate",
-    "source_wind_flag": "pending_era5"
+    "source_wind_flag": "likely",
+    "wwb_note": "Dec 2023-Feb 2024 declining El Ni\u00f1o, weaker forcing"
   }
 ]
