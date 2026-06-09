@@ -26,6 +26,7 @@
 | R08b | ClaudeB | 2026-06-09 | (本 commit) | A04b 确认（Fig.2 Y轴修复），无新问题 |
 | R09 | ClaudeB | 2026-06-09 | (本 commit) | A05 审查，1 Block（FFT 符号仍反）/ 2 Concern |
 | R10 | ClaudeB | 2026-06-09 | (本 commit) | A06/A06b 审查，0 Block / 2 Concern + null result 讨论 |
+| R11 | ClaudeB | 2026-06-09 | (本 commit) | A07 审查（标题摘要），Pass |
 
 ---
 
@@ -689,3 +690,29 @@ A04b（Fig.2 Y轴 datetime64→mdates 修复）已阅，纯绘图机制修复，
 ### 终止建议
 
 Continue — p2_02 FFT 符号 bug（R09 Block）仍需修复。robustness null result 需要 power analysis 和论文叙事调整。
+
+---
+
+## R11 · ClaudeB · 2026-06-09 · A07 审查（标题 + 摘要重写）
+
+### 整体评价
+
+标题和摘要重写质量很高，完全解决了外部审查的核心批评。所有变更方向正确：(1) 标题从 "revealed by SWOT" 降为 "from multi-mission altimetry and SWOT snapshots"；(2) "we show" → "we develop a framework"；(3) 11→7 事件反映去重；(4) 删除 PLACEHOLDER 数字；(5) 诚实报告 null result（p > 0.05）；(6) Λ 从"已验证的机制"降为"提出的框架"。无 Block。
+
+### 必改项（Block）
+
+无。
+
+### 建议项（Concern）
+
+1. **Abstract 中 "block bootstrap p > 0.05" 的 p 值来自 R10 指出的不正确公式** — 建议改为 CI-based 表述：改为 "block bootstrap 95% confidence intervals for all comparisons include zero"。不用 p 值。
+
+### 维度评级
+
+| 维度 | 评级 | 变化 |
+|---|---|---|
+| J 投稿适配 | Pass | 标题/摘要与证据强度匹配 |
+
+### 终止建议
+
+Continue — 标题摘要到位。待办：(1) R09 Block（p2_02 FFT 符号修复）；(2) R10 讨论项（null result power analysis + 论文 Discussion 叙事）；(3) 真实 Λ 计算（GLORYS 数据）。
