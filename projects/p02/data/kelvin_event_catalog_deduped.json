@@ -15,8 +15,8 @@
     "tau_intercept": -72.0,
     "cluster_size": 1,
     "confidence": "moderate",
-    "source_wind_flag": "likely",
-    "wwb_note": "Jan-Mar 2023 pre-onset period, moderate WWB activity"
+    "source_wind_flag": "marginal",
+    "wwb_note": "ERA5 localized check (p1_06b): peak westerly +3.0 m/s on 2023-01-03 at 150.0E, 0 days >3 m/s, domain west edge"
   },
   {
     "id": "KE02",
@@ -35,8 +35,8 @@
     "tau_intercept": -12.7,
     "cluster_size": 2,
     "confidence": "high",
-    "source_wind_flag": "confirmed",
-    "wwb_note": "Mar-May 2023 El Ni\u00f1o onset, active MJO-driven WWBs"
+    "source_wind_flag": "marginal",
+    "wwb_note": "ERA5 localized check (p1_06b): peak westerly +4.3 m/s on 2023-02-22 at 150.0E, 2 days >3 m/s, domain west edge"
   },
   {
     "id": "KE03",
@@ -56,7 +56,7 @@
     "cluster_size": 2,
     "confidence": "high",
     "source_wind_flag": "confirmed",
-    "wwb_note": "May-Jul 2023 El Ni\u00f1o buildup, frequent WWBs"
+    "wwb_note": "ERA5 localized check (p1_06b): peak westerly +9.5 m/s on 2023-05-19 at 150.0E, 6 days >3 m/s, domain west edge"
   },
   {
     "id": "KE04",
@@ -75,7 +75,7 @@
     "cluster_size": 1,
     "confidence": "high",
     "source_wind_flag": "confirmed",
-    "wwb_note": "Jul-Sep 2023 peak onset, sustained westerly anomalies"
+    "wwb_note": "ERA5 localized check (p1_06b): peak westerly +6.4 m/s on 2023-07-19 at 157.2E, 9 days >3 m/s"
   },
   {
     "id": "KE05",
@@ -94,7 +94,7 @@
     "cluster_size": 1,
     "confidence": "high",
     "source_wind_flag": "confirmed",
-    "wwb_note": "Aug-Oct 2023 peak El Ni\u00f1o, strong westerlies"
+    "wwb_note": "ERA5 localized check (p1_06b): peak westerly +5.8 m/s on 2023-07-31 at 154.5E, 8 days >3 m/s"
   },
   {
     "id": "KE06",
@@ -114,7 +114,7 @@
     "cluster_size": 2,
     "confidence": "high",
     "source_wind_flag": "confirmed",
-    "wwb_note": "Oct-Nov 2023 peak El Ni\u00f1o"
+    "wwb_note": "ERA5 localized check (p1_06b): peak westerly +6.0 m/s on 2023-10-07 at 163.2E, 13 days >3 m/s"
   },
   {
     "id": "KE07",
@@ -133,7 +133,7 @@
     "tau_intercept": 262.5,
     "cluster_size": 2,
     "confidence": "moderate",
-    "source_wind_flag": "likely",
-    "wwb_note": "Dec 2023-Feb 2024 declining El Ni\u00f1o, weaker forcing"
+    "source_wind_flag": "confirmed",
+    "wwb_note": "ERA5 localized check (p1_06b): peak westerly +6.2 m/s on 2023-12-17 at 166.8E, 11 days >3 m/s"
   }
 ]
