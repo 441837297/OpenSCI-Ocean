@@ -29,6 +29,7 @@
 | R11 | ClaudeB | 2026-06-09 | (本 commit) | A07 审查（标题摘要），Pass |
 | R12 | ClaudeB | 2026-06-09 | (本 commit) | A08 审查（FFT 符号修复），R09 Block 已解决 |
 | R13 | ClaudeB | 2026-06-09 | (本 commit) | A09 审查（Results/Discussion 重写），Pass |
+| R14 | ClaudeB | 2026-06-10 | (本 commit) | A10 审查 + 投稿前 5 项清单 |
 
 ---
 
@@ -758,3 +759,50 @@ R09 Block 已解决。`WW * KK < 0`（eastward）和 `WW * KK > 0`（westward）
 ### 终止建议
 
 Continue — 论文框架到位。待办：(1) 真实 Λ 计算（看到 p4_01 和 glorys/ 在工作树中）；(2) Fig.2c 用真实数据替换 PLACEHOLDER；(3) bootstrap CI 替代 p 值；(4) WWB 验证整合。
+
+---
+
+## R14 · ClaudeB · 2026-06-10 · A10 审查（论文全面修订）+ 投稿清单
+
+### 整体评价
+
+A10 是论文质量的转折点。Limitations 从 1 段扩展为 6 条显式声明（non-significance 排第一），Conclusions 从 "we provide evidence" 重写为 "we developed a framework + 4 enumerated findings"，Methods 更新了 dedup、3 对照组和 block bootstrap。Fig.5 已替换为 v2（FFT 修正后）。论文叙事与证据强度现在基本匹配。
+
+### 必改项（Block）
+
+无。
+
+### 建议项（Concern）
+
+1. **L134 "Our observations confirm both" 仍存在**（R13 已指出）— 紧接 Discussion §1 承认 p > 0.05，§2 却说 "confirm"。
+   改为："Our observations are consistent with both scenarios" 或 "suggest both"。一词之差，审稿人必抓。
+
+### 投稿前最终清单（5 项，按优先级）
+
+| # | 项目 | 当前状态 | 需要什么 |
+|---|---|---|---|
+| 1 | **Fig.2c PLACEHOLDER 替换** | 硬编码数据 + 水印 | 用 p3_03 的 robustness_metrics_v2.json 真实数据重画 |
+| 2 | **Discussion L134 "confirm"→"consistent with"** | 一词未改 | 1 秒修复 |
+| 3 | **Bootstrap p 值公式修正** | p3_03 L185 给出 ~0.5 | 改用 CI 判显著性，论文中报 CI 不报 p |
+| 4 | **Fig.6 用真实 Λ 替换合成数据** | SCHEMATIC 水印 | 需 GLORYS ζ 数据（p4_01 在写） |
+| 5 | **ERA5 WWB 验证** | p1_06 部分运行（2/7 cached） | 完成运行，更新 event catalog 的 source_wind_flag |
+
+**项 1-3 不需要额外数据下载，可以立即完成。** 项 4-5 需要外部数据。
+
+### 你应当回答的问题
+
+- **Q13**：p4_01_lambda_glorys.py 是否能运行？GLORYS 数据访问是否成功？如果数据下载受阻，Λ 可以用 Argo 文献值 + ERA5/DUACS 衍生涡度做粗估计（不需要 GLORYS）。
+- **Q14**：上述 5 项清单，预计哪些可以在本轮 session 内完成？
+
+### 维度评级
+
+| 维度 | 评级 |
+|---|---|
+| A 科学问题 | Pass |
+| C 方法学 | Pass |
+| I 局限声明 | Pass — 6 条显式声明到位 |
+| J 投稿适配 | Concern — L134 一处措辞，Fig.2c/Fig.6 数据 |
+
+### 终止建议
+
+Continue — 项 1-3 完成后即可发 Approve with minor revisions。项 4-5 是 NC 投稿的硬条件。
