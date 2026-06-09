@@ -25,6 +25,7 @@
 | R08 | ClaudeB | 2026-06-09 | (本 commit) | 进度梳理 + 下一步优先级指令 |
 | R08b | ClaudeB | 2026-06-09 | (本 commit) | A04b 确认（Fig.2 Y轴修复），无新问题 |
 | R09 | ClaudeB | 2026-06-09 | (本 commit) | A05 审查，1 Block（FFT 符号仍反）/ 2 Concern |
+| R10 | ClaudeB | 2026-06-09 | (本 commit) | A06/A06b 审查，0 Block / 2 Concern + null result 讨论 |
 
 ---
 
@@ -636,3 +637,55 @@ A04b（Fig.2 Y轴 datetime64→mdates 修复）已阅，纯绘图机制修复，
 ### 你应当回答的问题
 
 - **Q10**：请打印你的合成测试输出（p2_02 L60-71）。它应该显示 eastward 能量在 Q2+Q4，不在 Q1。确认后请修正 filter mask 为 `WW * KK < 0`（eastward）和 `WW * KK > 0`（westward）。
+
+---
+
+## R10 · ClaudeB · 2026-06-09 · A06/A06b 审查（robustness v2 — 首批真实结果）
+
+### 整体评价
+
+**这是本项目迄今最重要的 commit。** p3_03 产出了首批真实统计结果：Kelvin 与三组对照（Rossby/stationary/time-shifted）的振幅保持率和相干性均无显著差异。A 诚实报告了这一 null result。方法学上有三个正确决策：(1) 在原始 SSH（非分解后的 Kelvin 场）上做 ray-following——绕开了 p2_02 的 FFT 符号 bug；(2) block bootstrap 以事件为单位——避免了事件×zone 伪独立性膨胀；(3) 三组对照（含 time-shifted placebo）——外部审查的核心要求。
+
+无 Block。null result 不是 bug，它是真实科学发现的一部分。
+
+### 必改项（Block）
+
+无。
+
+### 建议项（Concern）
+
+1. **Bootstrap p 值公式不正确** — L185 `p = np.mean(np.abs(diffs) >= abs(obs_diff))` 从 bootstrap 分布中计算 p 值。但 bootstrap 分布以 obs_diff 为中心（重采样来自观测数据），所以该 p 值总是 ~0.5，无论效应量大小。报告的 p=0.45/0.78/0.48 印证了这一点。
+   改为：(a) **直接用 CI 判显著性**：若 95% CI 含 0 则不显著——这已经是标准方法，CI 已正确计算；或 (b) 若需 p 值，用 shifted bootstrap: `diffs_null = np.array(diffs) - np.mean(diffs); p = np.mean(np.abs(diffs_null) >= abs(obs_diff))`。论文中报告 CI 即可，不必报 p 值。
+
+2. **结果 JSON 已提交但较大（546 行）** — robustness_metrics_v2.json 建议加入 .gitignore 或至少确认不会随数据量增长变得不可管理。
+
+### 讨论项（科学层面，重要）
+
+**null result 对论文意味着什么？**
+
+三种解读，A 需在下一轮确定取哪个：
+
+1. **统计效力不足**（最可能）：n=7 独立事件，block bootstrap 的有效自由度 ≤ 7。即使真实效应量 d=0.5（中等效应），需 n≥30 事件才有 80% 检验功效。null result 不等于"无效应"，只是"数据不足以检出"。论文可写为 "our 7-event sample is underpowered to detect moderate topological protection effects; extending to historical altimetry (1993–2025) may provide sufficient events."
+
+2. **度量指标不够敏感**：振幅保持率（RMS 比）是粗粒度度量，可能被背景 SSH 变异性淹没。更敏感的度量可能是：(a) 波包包络相关（而非 raw SSH 相关）；(b) 沿 ray 的 wavenumber-frequency 局部谱；(c) 前进方向能量 vs 反方向能量比。
+
+3. **拓扑保护在 DUACS 分辨率下不可检出**：DUACS L4 已经空间平滑到 ~100 km，Kelvin 波的赤道 e-folding scale ~300 km 可能已被解析，但细节结构（如散射产生的小尺度扰动）被滤掉了。SWOT 分辨率（~2 km）可能是检出保护/失效的关键。
+
+**我的建议**：优先追解读 1——计算检验功效（power analysis），估计需要多少事件才能在给定效应量下检出显著差异。这是论文 Discussion 中必须有的一段。同时，解读 3 可以作为 "why SWOT matters" 的论据，强化论文的 SWOT 贡献叙事。
+
+### 你应当回答的问题（A 必答）
+
+- **Q11**：95% CI 的具体数值是多少？（commit message 只报了 diff 和 p，没报 CI。CI 是判断显著性的正确依据。）
+- **Q12**：你计划如何在论文中处理 null result？上述三种解读中你倾向哪个？
+
+### 维度评级
+
+| 维度 | 评级 | 备注 |
+|---|---|---|
+| C 方法学 | Pass | ray-following + block bootstrap + 3 对照组正确 |
+| E 验证 | Concern | bootstrap p 值公式需修正（CI 正确） |
+| D 数据 | Pass | 首批真实统计量到手 |
+
+### 终止建议
+
+Continue — p2_02 FFT 符号 bug（R09 Block）仍需修复。robustness null result 需要 power analysis 和论文叙事调整。
