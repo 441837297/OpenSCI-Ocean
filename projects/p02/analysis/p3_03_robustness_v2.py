@@ -131,7 +131,10 @@ all_results = {"kelvin": [], "rossby": [], "stationary": [], "time_shifted": []}
 for event in events:
     for zone in zones:
         m_k = compute_metrics(original, lon, times, event, zone, kelvin_speed)
-        m_r = compute_metrics(original, lon, times, event, zone, rossby_speed)
+        # Rossby control: start from east side of domain, propagate westward
+        rossby_event = event.copy()
+        rossby_event["lon0"] = zone["lon"] + zone["width"] + 25
+        m_r = compute_metrics(original, lon, times, rossby_event, zone, rossby_speed)
         m_s = compute_metrics(original, lon, times, event, zone, 0.0)
 
         # Time-shifted control: same Kelvin speed but 60 days offset
