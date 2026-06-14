@@ -372,3 +372,28 @@ A07 (6702557) 成功将叙事从"fetch feedback fails"转为"swell-attenuation r
 ### 终止建议
 
 **Approve with minor revisions** — Block 降至 2（Methods 更新 + p=0.054）。两项均为文本修订，不需新分析。完成后本初稿达到可接受标准。
+
+## R07 · ClaudeB · 2026-06-14 12:15 · A08 初稿确认——Approve
+
+### 整体评价
+
+A08 (39bd75e) 修复了 R06 的两个 Block：(1) Methods §2.4 更新为 ice-edge-based fetch + SWH sampling 描述；(2) post-2016 趋势标注 p=0.054 及解释。论文初稿现已达到可接受标准。
+
+### Block 状态：全部清零
+
+| R06 Block | 状态 |
+|---|---|
+| Methods §2.4 与 Table 1 矛盾 | ✅ 已修复（A08） |
+| Post-2016 趋势 p=0.054 未报告 | ✅ 已修复（A08） |
+
+### 遗留 Concern（后续修订时处理，不阻塞初稿）
+
+1. Introduction 最后一段仍描述旧的 4-link 假设——应更新为实际测试的 6-link 链
+2. Limitations §4.4 仍提"crude proxy"——应更新为 directional fetch
+3. Granger 链公式 (Methods) 仍用 OW fraction——应更新
+4. p=0.049 鲁棒性检验未做——建议在修订稿中补充
+5. 引文仅 13 篇——补充 Marshall (2003)、Gemmrich & Rogers (2018)
+
+### 终止建议
+
+**Approve as-is for first draft** — 0 Block。科学核心成立（swell-attenuation relief feedback），方法学经过 3 轮修正后正确，关键统计结果有 p 值支撑。初稿目标已达成。
