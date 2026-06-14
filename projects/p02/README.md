@@ -1,26 +1,35 @@
-# P02: Robustness and Breakdown of Topological Equatorial Waves in the Real Ocean Revealed by SWOT Altimetry
+# P02: Conditional Robustness of Equatorial Kelvin Waves in the Real Ocean
 
-> Does the topological protection predicted for equatorial Kelvin and Yanai waves leave observable dynamical fingerprints in the real, turbulent ocean — and under what conditions does it break down?
+> Perturbation spectral structure, rather than amplitude alone, controls where oceanic topological protection fails.
 
 ## Status
 
 | Item | Content |
 |---|---|
-| Current stage | 🔬 D0 Explore (候选 / candidate) |
+| Current stage | ✅ D1 Complete — 论文投稿就绪 |
 | Lead / proposer | (待确认) |
-| Target journal | Nature Communications (primary) |
+| Target journal | Nature Communications |
 | Start date | 2026-06-07 |
-| Expected submission | TBD |
+| Manuscript ready | 2026-06-10 |
+| ClaudeB 终审 | R22: APPROVE AS-IS |
+| 扩展验证 | A26: Λ₂ pre-registered test passes (n=83, p=0.002) |
 
-## D0 Priority Checklist
+## Completed Milestones
 
-- [ ] Download SWOT L3 SSH for equatorial Pacific (5°S–5°N, 130°E–80°W); build SSH anomaly Hovmöller diagram along equator
-- [ ] Identify eastward-propagating Kelvin wave events from Hovmöller (phase speed ~2.5 m/s); cross-check with ERA5/CCMP wind stress anomalies for western Pacific wind burst sources
-- [ ] Verify SWOT KaRIn swath coverage and revisit frequency in equatorial Pacific; estimate number of usable Kelvin wave "snapshots" from science orbit (2023–2025)
-- [ ] Download DUACS/AVISO gridded SSH for temporal gap-filling; assess complementarity with SWOT spatial resolution
-- [ ] Literature search: existing observational work on equatorial Kelvin/Yanai wave robustness, topological wave theory extensions beyond Delplace et al. 2017, and SWOT-based equatorial wave studies
-- [ ] Assess whether 2D meridional structure of Kelvin waves (equatorial trapping, Gaussian e-folding) is resolvable in SWOT KaRIn swath data
-- [ ] Identify strong perturbation regions along equatorial Pacific: TIW-active zones, island chains (Gilbert/Line Islands), cold tongue front, strong shear zones
+- [x] D0 Explore: 方向确认 + 可行性验证（Hovmöller Kelvin 事件识别）
+- [x] Phase 1: 7 个 Kelvin 波事件目录（2023–2024 El Niño）+ ERA5 WWB 确认
+- [x] Phase 2: SWOT 二维经向结构提取 + 频谱分解（FFT 符号修正后 Kelvin 占 41.6%）
+- [x] Phase 3: 鲁棒性诊断 + 三组对照（Rossby / time-shifted / 岛屿阴性对照）
+- [x] Phase 4: V2 共振机制（Λ₂ 三波/Bragg 共振判据，r=0.69, n=7）
+- [x] 外部审查 10 项全部修复（A03–A16, 39 commits）
+- [x] 论文 16 页 / 5 主图 / 150 词 Abstract / SI 4 页 / Cover letter
+- [x] 历史事件扩展 n=84，Λ₂ 预注册检验通过（r=0.333, p=0.002）
+- [x] ClaudeB R22 终审 APPROVE AS-IS
+
+## 投稿前待办
+
+- [ ] 填写作者信息和单位（paper.tex + cover_letter.md）
+- [ ] 填写推荐审稿人（cover_letter.md）
 
 ## Scientific Question
 
@@ -180,7 +189,13 @@ Planned figures for the manuscript (following NC format):
 
 | Date | Stage | Content | Output |
 |---|---|---|---|
-| 2026-06-07 | D0 | Participant submitted 14-page research proposal with reference paper (Delplace et al. 2017, Science) | Proposal PDF + README |
+| 2026-06-07 | D0 | 14-page research proposal + Delplace 2017 reference | Proposal PDF + README |
+| 2026-06-07 | D0→D1 | Phase 1: Hovmöller Kelvin 事件检测 (11 events) | analysis/p1_*.py |
+| 2026-06-08 | D1 | 外部审查 R0: 10 Major issues identified | R0-external-reviewer-report.md |
+| 2026-06-09–10 | D1 | 39-commit revision cycle (A03–A16, R05–R20) | 全部审查项修复 |
+| 2026-06-10 | D1 | V2 breakthrough: Λ₂ 共振窗判据 (r=0.69, n=7) | p4_03, A18 |
+| 2026-06-10 | D1 | R22: ClaudeB APPROVE AS-IS | 投稿包完成 |
+| 2026-06-10–11 | D1 | 历史扩展 n=84, Λ₂ p=0.002 (A24–A26) | p4_04, pre-registered test |
 
 ## AI Interaction Log
 
