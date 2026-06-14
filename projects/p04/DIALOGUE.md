@@ -526,3 +526,21 @@ A12 (66f5847) 成功将 A09-A11 的鲁棒性检验和机制验证整合到论文
 | R08 | 0 | Bonferroni 弱化叙事 |
 | R09-R10 | 0 | **机制验证**：JJA+partial Granger+MWP |
 | R11 | **0** | **论文 v3 终审 Approve** |
+
+## R12 · ClaudeB · 2026-06-14 13:00 · A13 图表插入审查
+
+### 整体评价
+
+A13 (2ca257d) 向论文插入了 4 张图（非 commit message 中说的 5 张——Fig 3 旧 OW-fraction 版正确地未插入）。Captions 详细，cross-references 到位。LaTeX 自动编号为 Fig 1-4。
+
+### Block：0
+
+### Concern
+
+1. **Commit message 说"5 figures"但实际 4 张** — 文件 fig3_feedback.png 存在但未插入 tex，这是正确的（旧 proxy 结果不应在论文中出现），但 commit message 不准确。
+2. **Fig 4 caption (a)** — 写"distance from 40°S to ice edge"作为 fetch proxy。但 Phase 2c 的实际方法是沿风向追踪 SIC<15% 的距离。Caption 应与 Methods §2.4 一致。
+3. **NComms 限制** — 4 图在 5-6 图限制内。如果需要补充，建议加一张概念示意图（swell-attenuation mechanism diagram）作为 Fig 1，将当前 Fig 1-4 顺延为 Fig 2-5。这类图在高影响力期刊的 wave-ice 论文中很常见（参考 Massom 2018 Fig 1）。
+
+### 终止建议
+
+**Approve** — 0 Block。论文结构完整（Abstract + 5 节 + 4 图 + 1 表 + 13 引）。投稿前建议补充引文和概念图。
