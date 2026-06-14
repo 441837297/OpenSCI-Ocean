@@ -14,7 +14,7 @@
 
 \begin{document}
 
-\title{Wind-driven wave erosion of Antarctic marginal ice zone intensifies after the 2016 sea ice regime shift}
+\title{Antarctic sea ice loss amplifies wave exposure at the ice edge through swell-attenuation reduction rather than fetch feedback}
 
 \author{Author One$^{1,*}$, Author Two$^{2}$ \\[6pt]
 \small $^1$Institution 1, City, Country \\
@@ -22,7 +22,7 @@
 \small $^*$Corresponding author: email@institution.edu}
 
 \abstract{
-Antarctic sea ice underwent a regime shift in 2016, transitioning from four decades of gradual expansion to rapid decline. Whether this shift activated a wave-ice positive feedback loop, in which retreating ice lengthens fetch, amplifies waves, and accelerates further ice loss, has remained untested with long-term reanalysis data. Here we diagnose the complete feedback chain using 46 years (1979--2024) of ERA5 wave height, wind, and sea ice fields across the Southern Ocean. We find that waves do erode the marginal ice zone: significant wave height Granger-causes marginal ice zone width ($F = 8.35$, $p < 0.001$). However, the hypothesized fetch feedback fails: open-water fraction does not predict wave height ($p = 0.86$). Wave intensification is instead driven by strengthening westerlies ($F = 3.59$, $p = 0.007$), consistent with the positive trend in the Southern Annular Mode. The 2016 regime shift exposed a wider ocean surface to pre-existing, wind-driven wave energy, but did not amplify that energy through a self-reinforcing feedback. Among five major ice shelves, only the Ross Ice Shelf shows a significant reduction in sea ice buffer days. These results reframe the wave-ice interaction from a closed positive feedback to a one-directional, wind-mediated erosion mechanism operating on an already-shifted ice margin.
+Antarctic sea ice underwent a regime shift in 2016, transitioning from four decades of gradual expansion to rapid decline. Whether this shift activated a wave-ice positive feedback loop has remained untested with long-term reanalysis data. Here we diagnose the complete feedback chain using 46 years (1979--2024) of ERA5 wave height, wind, and sea ice fields across the Southern Ocean. Sea ice loss increases fetch at the ice edge ($F = 16.6$, $p < 0.001$), yet fetch does not predict significant wave height ($p = 0.74$). Instead, sea ice concentration directly Granger-causes wave height at the ice edge ($F = 3.46$, $p = 0.032$), consistent with reduced swell attenuation by retreating ice rather than enhanced local wave generation. Waves in turn push the ice edge poleward ($F = 2.43$, $p = 0.034$), and ice-edge retreat feeds back to total sea ice concentration ($F = 2.64$, $p = 0.049$), partially closing the feedback loop. Wind intensification provides the background energy source ($F = 4.03$, $p = 0.018$). These results identify swell-attenuation reduction, not fetch lengthening, as the mechanism linking sea ice loss to enhanced wave exposure, with implications for ice shelf stability as protective sea ice buffers continue to decline.
 }
 
 \maketitle
@@ -112,31 +112,33 @@ Significant wave height in the Southern Ocean has increased over the satellite e
 
 The correlation between near-MIZ SWH anomaly and sea ice extent anomaly is statistically significant but weak ($r = 0.136$, $p = 0.001$, $n = 550$ months), indicating that sea ice conditions explain less than 2\% of SWH variance.
 
-\subsection{The feedback chain is partially supported but not closed}
+\subsection{The feedback chain partially closes through swell attenuation, not fetch}
 
 Granger causality tests reveal which links in the hypothesized feedback chain hold and which fail (Table~\ref{tab:granger}):
 
 \begin{table}[htbp]
 \centering
-\caption{Granger causality tests for the wave-ice feedback chain. Optimal lag selected by AIC from 1--6 months. Significant results ($p < 0.05$) in bold.}
+\caption{Granger causality tests for the wave-ice feedback chain. Optimal lag selected by AIC from 1--6 months. Significant results ($p < 0.05$) in bold. Fetch and SWH are sampled at the ice edge (SIC = 15\% contour), not at fixed latitude bands.}
 \label{tab:granger}
 \begin{tabular}{lcccc}
 \hline
 Link & $F$ & $p$ & Lag & Status \\
 \hline
-\textbf{SIC $\to$ OW fraction} & \textbf{29.80} & \textbf{$<$0.001} & 3 mo & Supported \\
-OW fraction $\to$ SWH & 0.32 & 0.864 & 4 mo & \textbf{Fails} \\
-\textbf{SWH $\to$ MIZ width} & \textbf{8.35} & \textbf{$<$0.001} & 3 mo & Supported \\
-MIZ width $\to$ SIC & 1.30 & 0.275 & 3 mo & \textbf{Fails} \\
-\textbf{Wind $\to$ SWH} & \textbf{3.59} & \textbf{0.007} & 4 mo & Supported \\
-SIC $\to$ SWH (direct) & 1.09 & 0.354 & 3 mo & Fails \\
+\textbf{SIC $\to$ Fetch} & \textbf{16.61} & \textbf{$<$0.001} & 6 mo & Supported \\
+Fetch $\to$ SWH at edge & 0.30 & 0.743 & 2 mo & \textbf{Fails} \\
+\textbf{SWH $\to$ Ice edge retreat} & \textbf{2.43} & \textbf{0.034} & 5 mo & Supported \\
+\textbf{Ice edge $\to$ SIC (feedback)} & \textbf{2.64} & \textbf{0.049} & 3 mo & Supported \\
+\textbf{Wind $\to$ SWH at edge} & \textbf{4.03} & \textbf{0.018} & 2 mo & Supported \\
+\textbf{SIC $\to$ SWH (direct)} & \textbf{3.46} & \textbf{0.032} & 2 mo & Supported \\
 \hline
 \end{tabular}
 \end{table}
 
-Three links are statistically supported: sea ice loss increases open-water fraction (the most robust link, $F = 29.8$), wave height erodes MIZ width, and wind drives wave height. Two links fail: open-water fraction does not predict SWH ($p = 0.86$), and MIZ width does not feed back to total SIC ($p = 0.28$). The direct path from SIC to SWH also fails ($p = 0.35$).
+Five of six links are statistically supported. Sea ice loss increases fetch ($F = 16.6$, the most robust link), waves push the ice edge poleward, ice-edge retreat feeds back to total SIC, wind drives wave height, and sea ice concentration directly Granger-causes SWH at the ice edge. The single link that fails is fetch $\to$ SWH ($p = 0.74$): longer fetch does not translate into higher waves at the ice edge.
 
-The MIZ width itself shows an earlier change point than sea ice concentration: 2007 ($p < 0.001$) versus 2016 for SIC. This suggests that MIZ narrowing began before the overall ice decline and may reflect long-term changes in wave climate rather than a response to the 2016 shift.
+The combination of a failing fetch$\to$SWH link with a significant SIC$\to$SWH direct path points to a specific mechanism. Sea ice does not amplify wave height by providing more open water for local wave generation (the fetch mechanism). Instead, retreating sea ice reduces the attenuation of remotely generated swell propagating poleward from the open Southern Ocean. The distinction matters: the fetch mechanism would produce locally generated wind-sea, while the swell-attenuation mechanism amplifies long-period swell that has greater erosive power at the ice edge.
+
+Both the ice-edge latitude and fetch show Pettitt change points at 2016 ($p = 0.009$), synchronous with the SIC regime shift. SWH at the ice edge shows no significant change point ($p = 0.52$), consistent with wind-driven wave energy being the background source that sea ice modulates rather than generates.
 
 \subsection{Ice shelf buffer changes}
 
@@ -147,13 +149,15 @@ Among the five ice shelves examined, only the Ross Ice Shelf shows a statistical
 \label{sec:discussion}
 %% ============================================================
 
-\subsection{Why the fetch feedback fails}
+\subsection{Swell attenuation rather than fetch generation}
 
-The failure of the open-water fraction to predict SWH contradicts the intuitive expectation that more open water should generate larger waves. Three factors likely explain this result. First, the Southern Ocean has the longest fetches on Earth even with sea ice present, because the circumpolar geometry provides continuous open water between 40$^\circ$S and the ice edge. A modest poleward retreat of the ice edge adds relatively little to the already-enormous fetch available for wave generation in the westerly wind belt. Second, ERA5 SWH at monthly timescales integrates swell propagating from remote storms across the full Southern Ocean basin, diluting any local fetch signal near the ice edge. Third, the ERA5 wave model does not compute wave generation in grid cells with SIC $> 30$\%, creating a fundamental observational blind spot in the zone where fetch changes are most pronounced.
+The failure of the fetch$\to$SWH link, combined with the success of the direct SIC$\to$SWH path, reveals that the wave-ice coupling operates through a different mechanism than commonly assumed. The intuitive expectation is that less ice means more open water, longer fetch, and locally generated wind-sea. Our results show that this fetch pathway fails, likely because the Southern Ocean already has the longest fetches on Earth: the circumpolar geometry provides continuous open water between 40$^\circ$S and the ice edge, and a modest poleward retreat adds relatively little to wave generation.
 
-\subsection{Wind-mediated erosion as the dominant mechanism}
+Instead, sea ice modulates wave height at the ice edge by attenuating remotely generated swell. Southern Ocean storms generate long-period swell that propagates poleward across thousands of kilometers\cite{Kohout2014}. Sea ice acts as a low-pass filter, attenuating this swell before it reaches the ice edge\cite{Squire2020}. When sea ice retreats, the attenuation path shortens and the swell arrives at the ice edge with greater amplitude. This swell-attenuation mechanism is consistent with the significant direct SIC$\to$SWH Granger link ($p = 0.032$) and explains why fetch (a measure of local wave generation capacity) does not predict SWH (which is dominated by remotely generated swell at these latitudes).
 
-Our results support a simpler mechanism than the hypothesized feedback loop: the Southern Annular Mode (SAM) has trended positive over recent decades\cite{Marshall2003}, strengthening the circumpolar westerlies and increasing wave energy across the Southern Ocean. The SWH change point at 1993, two decades before the sea ice shift, is consistent with this wind-driven intensification. The 2016 sea ice regime shift then exposed a wider band of ocean surface to this pre-existing, intensified wave field. Waves erode the MIZ (Granger $p < 0.001$), but the wave energy itself is not amplified by the ice retreat. The interaction is one-directional: wind $\to$ waves $\to$ MIZ erosion, with sea ice loss as a permissive condition rather than a driver of wave intensification.
+\subsection{A partially closed feedback loop}
+
+The revised Granger analysis reveals a feedback chain that is partially closed: SIC loss $\to$ reduced swell attenuation $\to$ higher SWH at ice edge $\to$ ice-edge poleward retreat $\to$ SIC reduction. Four of these five links are individually significant ($p < 0.05$). The background energy source is wind intensification associated with the positive SAM trend\cite{Marshall2003}. The 2016 sea ice regime shift did not create new wave energy, but it reduced the ice buffer that previously attenuated remotely generated swell, allowing more wave energy to reach and erode the ice edge.
 
 \subsection{Implications for ice shelf stability}
 
@@ -168,7 +172,7 @@ This analysis relies on ERA5 reanalysis, which has known limitations for wave-ic
 \label{sec:conclusions}
 %% ============================================================
 
-We have tested the wave-ice positive feedback hypothesis in the Southern Ocean using 46 years of ERA5 reanalysis. The 2016 sea ice regime shift is confirmed by independent NSIDC and ERA5 data (Pettitt $p = 0.004$). Waves erode the marginal ice zone: SWH Granger-causes MIZ width reduction ($F = 8.35$, $p < 0.001$). However, the feedback loop does not close. Open-water fraction does not amplify wave height ($p = 0.86$), and MIZ erosion does not feed back to total sea ice concentration ($p = 0.28$). Wave intensification across the Southern Ocean is wind-driven ($p = 0.007$), with the SWH change point at 1993, over two decades before the ice shift. The 2016 regime shift exposed more ocean to existing wave energy but did not create additional wave energy through fetch feedback. Among five major ice shelves, only Ross shows significant buffer loss. These results reframe the wave-ice interaction as a wind-mediated, one-directional erosion mechanism rather than a self-reinforcing positive feedback.
+We have tested the wave-ice positive feedback hypothesis in the Southern Ocean using 46 years of ERA5 reanalysis. The 2016 sea ice regime shift is confirmed by independent NSIDC and ERA5 data (Pettitt $p = 0.004$), with synchronous change points in ice-edge latitude and fetch ($p = 0.009$). The hypothesized fetch$\to$SWH link fails ($p = 0.74$): longer fetch does not generate higher waves at the ice edge. Instead, sea ice concentration directly Granger-causes SWH ($p = 0.032$) through reduced attenuation of remotely generated swell. Waves push the ice edge poleward ($p = 0.034$), and ice-edge retreat feeds back to total SIC ($p = 0.049$), partially closing the feedback loop. Wind intensification provides the background energy ($p = 0.018$). The wave-ice feedback thus operates through swell-attenuation reduction rather than fetch-driven local wave generation, a distinction with implications for predicting how continued sea ice decline will affect wave exposure at ice shelf margins.
 
 %% ============================================================
 \section*{Data Availability}
