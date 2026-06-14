@@ -8,6 +8,7 @@ import matplotlib.patches as mpatches
 from matplotlib.patches import FancyArrowPatch
 import numpy as np
 import os
+from pathlib import Path
 
 mpl.rcParams.update({
     "font.family": "sans-serif",
@@ -16,7 +17,7 @@ mpl.rcParams.update({
     "axes.linewidth": 0.6, "legend.frameon": False,
 })
 
-OUT = "/Users/zhulin/aitest/OpenSCI-Ocean/projects/p02/manuscript/figures"
+OUT = str(Path(__file__).resolve().parent)
 
 fig = plt.figure(figsize=(7.09, 5.5))
 

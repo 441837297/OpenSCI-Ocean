@@ -285,7 +285,7 @@ $$
 
 ### 4.1 可复现性不足
 
-很多脚本写死了本地路径，比如 `/Users/zhulin/aitest/...` 或 `/mnt/d/v2_0_1/Basic`。`p0_01_download_duacs.py`、`p1_01_hovmoller_equatorial.py`、`p1_02_swot_eq_scan.py`、`p1_03_swot_meridional_profile.py` 都有这个问题。
+很多脚本写死了本地路径，比如 `/Users/<user>/aitest/...` 或 `/mnt/d/v2_0_1/Basic`。`p0_01_download_duacs.py`、`p1_01_hovmoller_equatorial.py`、`p1_02_swot_eq_scan.py`、`p1_03_swot_meridional_profile.py` 都有这个问题。
 
 建议建立：
 

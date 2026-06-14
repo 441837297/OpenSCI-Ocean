@@ -7,8 +7,10 @@ Variables: sla, adt
 """
 import copernicusmarine
 import os
+from pathlib import Path
 
-OUT_DIR = "/Users/zhulin/aitest/OpenSCI-Ocean/projects/p02/data/duacs"
+_ROOT = Path(__file__).resolve().parent.parent
+OUT_DIR = str(_ROOT / "data/duacs")
 os.makedirs(OUT_DIR, exist_ok=True)
 
 out_file = os.path.join(OUT_DIR, "duacs_eqpac_daily_2023_2025.nc")

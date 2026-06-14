@@ -12,9 +12,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import json, os
+from pathlib import Path
 
-DATA_DIR = "/Users/zhulin/aitest/OpenSCI-Ocean/projects/p02/data/duacs"
-FIG_DIR = "/Users/zhulin/aitest/OpenSCI-Ocean/projects/p02/figures"
+_ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = str(_ROOT / "data/duacs")
+FIG_DIR = str(_ROOT / "figures")
 
 # Load decomposed fields
 dec = np.load(os.path.join(DATA_DIR, "spectral_decomposition.npz"), allow_pickle=True)
@@ -25,7 +27,7 @@ lon = dec["lon"]
 times = dec["times"]
 
 # Load event catalog
-with open("/Users/zhulin/aitest/OpenSCI-Ocean/projects/p02/data/kelvin_event_catalog.json") as f:
+with open(_ROOT / "data/kelvin_event_catalog.json") as f:
     events = json.load(f)
 
 # Define perturbation zones

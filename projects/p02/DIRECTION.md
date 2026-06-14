@@ -26,7 +26,7 @@
 | 项 | 值 |
 |---|---|
 | **执行环境** | 混合（本地 Mac + 远程 WSL） |
-| **远程连接** | `ssh think@100.111.65.40`（Tailscale） |
+| **远程连接** | 远程台式机（Tailscale） |
 | **本地 OS** | macOS Darwin 25.4.0 arm64 |
 | **远程 OS** | Windows + WSL2 Ubuntu |
 | **本地 Python** | 3.14.3 (homebrew, system) |
@@ -35,8 +35,8 @@
 | **远程 GPU** | PyTorch 2.6.0+cu124（CUDA toolkit 已安装；需确认实际 GPU 硬件） |
 | **本地关键依赖** | xarray 2026.2.0, numpy 2.4.3, scipy 1.17.1, matplotlib 3.10.8, cartopy 0.25.0, netCDF4 1.7.4, copernicusmarine, earthaccess, ee (GEE) |
 | **远程关键依赖** | torch 2.6.0+cu124, xarray 2026.4.0, numpy 2.4.4, scipy 1.17.1, netCDF4 1.7.4 |
-| **原始数据目录** | 本地: `/Users/zhulin/aitest/OpenSCI-Ocean/projects/p02/data/` |
-| **输出目录** | `/Users/zhulin/aitest/OpenSCI-Ocean/projects/p02/figures/` |
+| **原始数据目录** | 本地: `data/` |
+| **输出目录** | `figures/` |
 | **文件同步** | 坚果云（Mac ↔ Windows 同步） |
 
 **数据获取优先级（铁律）**：
@@ -57,7 +57,7 @@
 | DUACS/ERA5 小量下载 | 本地 Mac 或远程 | copernicusmarine/ARCO-ERA5 zarr |
 | Hovmöller 分析/绘图 | 本地 Mac | xarray + matplotlib + cartopy |
 | AI 模式分解训练 | 远程 WSL | PyTorch + CUDA（Phase 2） |
-| 结果同步 | 坚果云 | 远程→Mac：结果文件放 /mnt/e/Documents/temp/ |
+| 结果同步 | 坚果云 | 远程→Mac：坚果云同步 |
 
 ## 3. 初步判断
 

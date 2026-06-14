@@ -6,13 +6,15 @@ Panel a: Feedback loop diagram (competing mechanisms)
 Panel b: Antarctic map showing MIZ, ice shelves, study regions
 """
 
+from pathlib import Path
 import numpy as np
 import matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 import matplotlib.patheffects as pe
 
-FIG = '/Users/zhulin/aitest/OpenSCI-Ocean/projects/p04/manuscript_v2/figures'
+_ROOT = Path(__file__).resolve().parent.parent
+FIG = str(_ROOT / "manuscript_v2/figures")
 
 fig = plt.figure(figsize=(16, 7))
 

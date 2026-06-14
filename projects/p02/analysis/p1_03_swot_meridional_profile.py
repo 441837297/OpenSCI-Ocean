@@ -1,6 +1,6 @@
 """
 P1-03: Extract SWOT meridional SSH profile across equator
-Run on remote WSL: python3 /mnt/e/Documents/temp/p1_03_swot_meridional_profile.py
+Run on remote WSL
 
 Pick a pass during a known Kelvin wave event (2023 El Nino buildup, ~Oct 2023)
 and extract the cross-track SSH profile to check equatorial trapping structure.

@@ -14,6 +14,7 @@ import numpy as np
 import xarray as xr
 import json
 import os
+from pathlib import Path
 from scipy.ndimage import uniform_filter1d
 
 mpl.rcParams.update({
@@ -32,7 +33,7 @@ mpl.rcParams.update({
     "ytick.major.size": 3,
 })
 
-BASE = "/Users/zhulin/aitest/OpenSCI-Ocean/projects/p02"
+BASE = str(Path(__file__).resolve().parent.parent.parent)
 OUT = os.path.join(BASE, "manuscript", "figures")
 os.makedirs(OUT, exist_ok=True)
 
