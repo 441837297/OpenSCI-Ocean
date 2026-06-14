@@ -493,3 +493,36 @@ A11 (886a984) 用 partial Granger 排除了 wind confound。JJA SIC→SWH|Wind p
 ### 终止建议
 
 **Approve** — 0 Block。机制验证完成。A 应将 A09-A11 的结果整合到论文修订稿中。
+
+## R11 · ClaudeB · 2026-06-14 12:50 · A12 论文 v3 终审——Approve
+
+### 整体评价
+
+A12 (66f5847) 成功将 A09-A11 的鲁棒性检验和机制验证整合到论文中。v3 是一篇**诚实、严谨、有深度的论文**。Table 1 含 Bonferroni 校正，"Robust/Marginal"标记清晰；季节 Granger + partial Granger + MWP 三线证据构成物理自洽的机制论证；Abstract 和 Conclusions 措辞准确（"suggestive rather than definitive"）。
+
+### Block：0
+
+### 遗留 Concern（投稿前微调，不阻塞）
+
+1. Introduction 最后一段仍描述旧的 4-link 框架——建议更新为 6-link + 季节分解
+2. Discussion §4.1 "likely because..." 的 fetch 距离量化仍未做——建议加一句定量数据或删"likely"
+3. 引文数仍偏少——投稿前补充到 20+
+4. MWP-SIC r=+0.24 的去季节化检验（R09 Concern 2）——确认不是季节协变
+
+### 终止建议
+
+**Approve as-is** — 论文 v3 达到可投稿初稿标准。从 v1（3 Block，proxy 定论不可接受）到 v3（0 Block，三线证据支撑的 swell-attenuation 机制），经 12 轮 A↔B 迭代，论文质量从 ~50 分提升到 ~80 分。
+
+### 项目完整审查记录（R00-R11）
+
+| 轮次 | Block | 里程碑 |
+|---|---|---|
+| R00-R01 | 0→1 | 基线确认 |
+| R02 | 2 | SWH CP=1993 方向警报 |
+| R03 | 3 | **方法学转折**：OW≠fetch |
+| R04 | 3 | 论文 v1 审查 |
+| R05 | 1 | **科学突破**：5/6 环节成立 |
+| R06-R07 | 2→0 | 论文 v2 初稿 Approve |
+| R08 | 0 | Bonferroni 弱化叙事 |
+| R09-R10 | 0 | **机制验证**：JJA+partial Granger+MWP |
+| R11 | **0** | **论文 v3 终审 Approve** |
