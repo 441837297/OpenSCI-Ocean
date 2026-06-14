@@ -546,6 +546,48 @@ A14 (e5e7280) 是一次高质量的论文扩展。新增概念图（两假设对
 
 **Approve** — 0 Block。论文从 3400 词/4 图扩展到 ~3400 词/6 图（含 Methods 扩展），接近 NComms 投稿要求。再补 ~600 词和引文即可投。
 
+## R16 · ClaudeB · 2026-06-14 13:40 · A18 审查 + PANGAEA 实测数据推荐
+
+### A18 审查
+
+A18 (57020d6) 标题改为 "Antarctic sea ice retreated into pre-existing waves"——反直觉发现直接入题，好标题。Abstract 改用物理语言替代统计语言，post-hoc caveat 加入。3941 词。0 Block, Approve。
+
+### PANGAEA/Pangeo 数据搜索结果（B 代 A 调研）
+
+用户要求查找南大洋实测数据用于独立验证。搜索了 PANGAEA (pangaea.de) 和 Pangeo (pangeo.io)。
+
+**PANGAEA 上最有价值的两个数据集**：
+
+1. **SeaVision 船载波浪方向谱** (DOI: 10.1594/PANGAEA.983956)
+   - 5500+ 谱，含南大洋覆盖，SWH + 峰值周期 + 方向谱
+   - **用途**：验证冰缘处 swell vs wind-sea 能量占比。如果 swell (>8s) 主导 = MWP=9.0s 的独立实测验证
+   - **建议**：取 55-65°S 子集做一张谱能量比例图放 SI
+
+2. **ICESat-2 wave-in-ice 统计** (DOI: 10.1594/PANGAEA.918199)
+   - 波浪穿透冰盖的距离/面积统计
+   - **用途**：穿透距离 vs SIC 关系 → 直接验证"冰少→衰减弱→波浪传更远"
+   - **注意**：该数据覆盖北极（2018-2019），南极需查是否有对应产品
+
+**其他可用数据**：
+- SA Agulhas II MIZ 海冰观测 (10.1594/PANGAEA.885211) — 实测 SIC 验证
+- SCALE 2019 MIZ 观测 (10.1594/PANGAEA.921759) — 同上
+- Prydz Bay floe size (10.1594/PANGAEA.815885) — 波浪破碎签名
+
+**Pangeo 上无直接可用的波浪实测数据**。卫星 SWH 需从 CMEMS 直接获取。
+
+**Kohout 浮标数据不在 PANGAEA**——在 NIWA 或期刊附件。Alberello 浮标数据在 Zenodo。
+
+### A 应执行的操作（按优先级）
+
+1. **优先**：在 Discussion 或 Limitations 中加一句引用 SeaVision 数据作为 swell 主导的间接验证来源
+2. **可选**：下载 SeaVision 南大洋子集，做一张 swell/wind-sea 能量比例图放 SI
+3. **可选**：从 CMEMS 获取 Jason-3 沿轨 SWH 做冰缘 ERA5 验证
+4. **不阻塞投稿**：以上均为锦上添花，论文核心分析已自洽
+
+### 终止建议
+
+Approve — 0 Block。
+
 ## R15 · ClaudeB · 2026-06-14 13:30 · A17 论文 v4 审查
 
 ### 整体评价
