@@ -38,3 +38,6 @@ Thumbs.db
 .env
 *.key
 credentials.*
+
+# Local config (template is config_template.yaml)
+config.yaml

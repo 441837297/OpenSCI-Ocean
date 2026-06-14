@@ -1,261 +1,207 @@
-# P03: Testing Neglected Eddy Boundary Signals with SWOT Altimetry
+# P03: Eddy-Periphery Fine-Scale Strain Enhancement Revealed by SWOT
 
-> This project tests whether SWOT-resolved SSH-gradient rims provide a better coordinate for organizing SST, chlorophyll, and PACE-derived tracer anomalies than conventional AVISO/py-eddy-tracker eddy-core coordinates.
+> 原题: Testing Neglected Eddy Boundary Signals with SWOT Altimetry（2026-06-07 D0 proposal）
+> 当前方向: 从 "rim-radius offset" 深化为 "eddy-periphery fine-scale strain enhancement"（2026-06-14 更新）
 
 ## Status
 
 | Item | Content |
 |---|---|
-| Current stage | D0 Explore / idea proposal |
-| Lead / proposer | TBD |
-| Target journal | TBD (Stage 2 cross-tracer result could support Nature Communications / Science Advances; Stage 1 alone likely supports Ocean Science, GRL, JGR Oceans, or Remote Sensing of Environment) |
+| Current stage | 📦 D2 Deliver — R1 review response submitted, preparing for Stage 2 prototype |
+| Lead / proposer | Zhisheng Zhang |
+| Target journal | Nature Communications / Science Advances（取决于 Stage 2 跨区域 tracer 证据强度） |
 | Start date | 2026-06-07 |
-| Expected submission | TBD |
+| Stage 1 completed | 2026-06-13（rim-radius offset: null/weak） |
+| Direction updated | 2026-06-14（转向 peripheral strain enhancement） |
+| R1 response drafted | 2026-06-15（`review/R1-response-to-reviewer.md`） |
 
-## D0 Priority Checklist
+## Project Evolution（项目演化）
 
-- [ ] Confirm with maintainers whether P03 can be used for this topic.
-- [ ] Verify SWOT L3/L2 access routes and product versions (AVISO L3 Basic/Expert/Unsmoothed; PO.DAAC L2 Version D).
-- [ ] Verify py-eddy-tracker access and confirm it can be applied to AVISO/DUACS geostrophic currents to produce eddy center, effective radius, and contour for the SWOT period (2024–2026).
-- [ ] Verify DUACS DT2024 effective resolution documentation for each pilot region.
-- [ ] Compile literature seed list with verified references across all categories (see References section below — all citations require manual verification before manuscript use).
-- [ ] Produce 3-region prototype figure set for collaborator discussion.
-- [ ] Decide whether Stage 2 tracer download proceeds in parallel or is gated on Stage 1 signal strength.
+```
+D0（2026-06-07）: "SWOT-resolved rim 是否比 AVISO eddy-core 更好地组织 tracer anomalies?"
+  H2: rim-radius offset (R_SWOT − R_DUACS)
 
-## Scientific Question
+↓ Stage 1 实验（2026-06-10 ~ 2026-06-13）
 
-Conventional multimission altimetry (AVISO/DUACS) defines mesoscale eddies through gridded sea-level anomaly contours and composites tracer anomalies around an eddy center and effective radius. This eddy-core framework has produced foundational insights — from eddy-induced chlorophyll modulation to heat and carbon transport estimates — but it operates at an effective spatial resolution where eddy rims, sharp SSH gradients, and non-axisymmetric peripheral structures are inevitably smoothed (DUACS DT2024 effective resolution: ~100–200 km depending on latitude and region).
+Stage 1 结果: 16 Kuroshio prototype cases, v2 修正.
+  5 个 clean cases 的 ΔR 符号混合（+32, −4, +34, −4, −2 km）.
+  样本量不足以精确估计总体中位数，但足以排除原半径偏移假说.
+  → 排除了低层解释: SWOT 不简单改写边界半径.
 
-SWOT KaRIn wide-swath altimetry provides an unprecedented two-dimensional altimetric view of SSH gradients around mesoscale eddies. The question is not whether AVISO is "wrong," but whether the higher-resolution SSH structure changes where we think eddy-induced anomalies are concentrated.
+↓ 文献深化（2026-06-14）
 
-Here, "rim" means an Eulerian SSH-gradient or geostrophic-speed feature, not a material transport barrier. This distinction is critical: SWOT resolves spatial structure in SSH, but it cannot by itself prove material trapping, leakage, or causality.
+阅读 Zhang 2019 NC + Dong 2025 NC + Archer 2025 Nature.
+  → 方向从 "radius offset" 升级为 "peripheral strain enhancement."
 
-The central scientific question is:
+当前: "已编目中尺度涡旋外围是否存在 SWOT 才能解析的细尺度应变增强?"
+  详见 DIRECTION.md（冻结版科学方向）
+```
 
-> **Do SST, chlorophyll, and PACE-derived tracer anomalies align more closely with the SWOT-resolved peripheral high-gradient rim than with the traditional AVISO/py-eddy-tracker eddy center or effective radius?**
+## Current Scientific Question
 
-This project proceeds in two stages. Stage 1 uses altimetry alone to test whether a SWOT-resolved rim signal is robust after fair filtering and negative controls. Stage 2 tests whether independent tracer datasets are statistically better organized by the SWOT rim than by the conventional eddy-core coordinate. Altimetry-only Stage 1 cannot claim material trapping or leakage.
+> **Do catalogued mesoscale eddies show statistically significant excess fine-scale strain around their peripheries, as observed by SWOT, relative to matched controls? Does this peripheral strain enhancement predict independent SST and Chl-a responses?**
 
-## Core Narrative
+### 为什么不是"重写"而是"深化"
 
-> AVISO/DUACS enabled a global eddy-core paradigm, but its effective resolution smooths the dynamically active peripheral zone where eddies interact with surrounding waters. SWOT now allows us to test whether this peripheral high-gradient rim — sharper, less axisymmetric, and potentially offset from the conventional eddy radius — is where eddy-induced tracer anomalies actually concentrate. If the rim signal is robust, it could provide a physically grounded refinement to eddy-centered compositing.
+1. **继承了同一 eddy registry**: DUACS/PET 检测的 7057 对 SWOT-eddy matches
+2. **继承了同一数据处理链**: SwotDiag 拟合核 + Archer pipeline + De Marez gap-handling
+3. **继承了同一核心策略**: AVISO detect → SWOT measure
+4. **Stage 1 的 null/weak 不是失败**: 它排除了低层解释，指向了更深的问题
 
-## Hypotheses
+### 核心创新（vs. 前人）
 
-1. **H1 — Sharper, less axisymmetric rim**: SWOT resolves eddy peripheral SSH gradients that are systematically sharper and less axisymmetric than those represented in AVISO/DUACS gridded products. py-eddy-tracker eddy contours provide the AVISO-side baseline for rim shape and effective radius. Tested via rim sharpness and rim asymmetry/coherence metrics in Stage 1.
+| 前人工作 | 做了什么 | 我们增量在哪 |
+|---------|---------|-----------|
+| Archer 2025 Nature | SWOT 全球 fine-scale SSH activity | 首次围绕 catalogued eddies 做 control-subtracted peripheral strain composite |
+| Dong 2025 NC | Lofoten Basin 单区域 strain → warm ring（Seaglider + model） | 用 SWOT 实测做跨海盆统计检验；不把 warm ring 当主假说 |
+| Zhang 2019 NC | AVISO DUACS strain → ageostrophic motion / Chl | 用 SWOT 替换 AVISO；从全场 strain → eddy-centric periphery |
+| Liu 2026 GRL | SWOT Lagrangian flow network（South China Sea） | 刻意避开 network 方向；聚焦 eddy-centric strain organization |
 
-2. **H2 — Rim position offset**: The SWOT-derived rim radius (maximum `|∇SSH|` or geostrophic speed) differs from the py-eddy-tracker-derived effective radius or maximum-speed contour by a nonzero median normalized offset, with confidence intervals excluding zero after noise, filtering, and swath-position controls. A Stage 1 signal is considered meaningful only if the median absolute normalized offset exceeds the estimated rim-location uncertainty.
+### 两层框架
 
-3. **H3 — Tracer anomalies are rim-organized**: At least one mature tracer product, with SST and conventional ocean color as primary tests and PACE as an exploratory ecological case, shows stronger and more radially localized tracer anomaly peaks in rim-aligned coordinates than in py-eddy-tracker-radius-aligned or center-aligned coordinates under identical samples. Tested in Stage 2.
+```
+第一层（predictor, 纯 SWOT SSH, lock-box）:
+  检验 eddy periphery 是否存在 excess fine-scale strain.
+  四类 matched controls: same-swath random / local displaced / background-strain matched / isolated-eddy.
 
-4. **Null hypotheses**:
+第二层（response, 打开 lock-box）:
+  检验 peripheral strain enhancement 是否预测 SST/Chl-a response.
+  措辞: "predicts / covaries with", 不声称 causation.
+```
 
-   - **Stage 1 null**: SWOT vs. py-eddy-tracker rim differences are explained by filtering, mapping resolution, product choice, swath noise, or random eddy-center perturbations. After fair filtering to DUACS-like effective resolution, no robust rim offset, sharpness, or asymmetry remains.
-   - **Stage 2 null**: Given the same eddies and tracer observations, rim-aligned coordinates do not improve tracer composite strength, localization, or explained variance relative to py-eddy-tracker-radius or center-aligned coordinates.
-   - **Background-front null**: Apparent rim tracer anomalies are explained by pre-existing large-scale SST/chlorophyll fronts rather than by the SSH-defined eddy rim.
+### 术语规范
 
-## Data
+| 推荐（主文） | 内部简称 | 何时升级 |
+|------------|---------|---------|
+| eddy-periphery fine-scale strain enhancement | strain halo | 仅当数据证实 annular continuity + radial localization + azimuthal coverage |
+| peripheral strain activity | — | — |
+| F_edge（peripheral strain-enhanced fraction） | — | — |
+| catalogued / parent mesoscale eddies | — | — |
 
-All datasets are public. Raw data should not be committed to the repository.
+### 关键口径（已定，详见 DIRECTION.md）
 
-### Stage 1: Altimetry-based rim detection
+1. 不声称"边界比涡核重要"——说 core mode + peripheral strain mode 并存
+2. 不声称 genesis——第一阶段只主张 matched controls 后的 eddy-associated excess strain
+3. 不把 warm ring 当主假说——Dong 2025 是机制支撑
+4. predictor-response 分离——不用 tracer 定义物理状态
+5. PET 作 registry，不作 boundary-definer
 
-- **SWOT KaRIn L2 Low Rate SSH** (PO.DAAC Version D) — primary rim detection product. 2×2 km² swath-aligned grid with 250×250 m² native grid option. Preferred over L3 for independence from nadir/DUACS processing.
-- **SWOT KaRIn L3 Low Rate SSH Expert / Unsmoothed** (AVISO/DUACS) — secondary rim product for sensitivity check. L3 Basic may be used for rapid prototyping but the primary analysis should use L2 or L3 Expert/Unsmoothed to avoid product-dependence concerns when comparing against DUACS/py-eddy-tracker.
-- **AVISO/DUACS gridded SSH / SLA / ADT / geostrophic currents** (CMEMS DT2024) — conventional reference product. Documented effective resolution ~100–200 km depending on latitude.
-- **py-eddy-tracker** (open-source, Pegliasco et al. 2022) applied to AVISO/DUACS geostrophic velocity fields — produces eddy center, effective radius, eddy edges, and maximum-speed contours from the same AVISO gridded product. This provides the AVISO-side baseline for rim comparison, using the same algorithm that built the META atlas but applied directly to the SWOT-period geostrophic currents.
+---
 
-### Stage 2: Tracer response
+## 当前实验路线（5 Experiments，详见 DIRECTION.md）
 
-- **SST** (GHRSST / OSTIA / GOES/Himawari geostationary) — primary Stage 2 tracer; geostationary sensors provide higher temporal coverage for matchup with SWOT snapshots.
-- **Ocean color / chlorophyll** (ESA OC-CCI / MODIS / VIIRS) — primary Stage 2 biological tracer.
-- **PACE** (OCI hyperspectral) — exploratory ecological case study; shorter record and cloud constraints acknowledged.
-- **Argo / BGC-Argo** — subsurface vertical section validation at selected rim-crossing transects.
+| Exp | 问题 | 状态 |
+|-----|------|------|
+| 1 | 是否存在 excess peripheral strain? | 🔲 待开发 |
+| 2 | 空间范围和滤波尺度敏感性? | 🔲 依赖 Exp 1 |
+| 3 | 伪影排除（四类 controls）? | 🔲 依赖 Exp 1 |
+| 4 | 是否预测 SST/Chl-a response? | 🔲 依赖 Exp 1 |
+| 5 | F_edge 分布形态（连续 vs 分群）? | 🔲 依赖 Exp 1 |
 
-## Method
-
-### Stage 1: Eddy rim detection from altimetry
-
-**Step 1.1 — Pilot regions and eddy selection**
-
-Pilot regions (Phase 1): Kuroshio Extension, Gulf Stream, Agulhas Return Current. Prioritize py-eddy-tracker-detected eddies with clear SWOT swath intersection. Eddy selection criteria should be pre-declared where possible to avoid beautiful-case selection bias.
-
-Expansion (Phase 2, if pilot stable): North Pacific subtropical gyre, South Atlantic eddy corridor.
-
-**Step 1.2 — Three core Stage 1 diagnostics**
-
-Only three primary metrics are computed in Stage 1. All use `|∇SSH|` and geostrophic speed — physically grounded quantities that do not require novel indices. Smoothing and gradient computation methods must be documented; rim-location uncertainty must be estimated.
-
-1. **Rim offset**: distance between the radius of maximum SWOT `|∇SSH|` (or geostrophic speed) and the py-eddy-tracker-derived effective radius or maximum-speed contour, normalized by the py-eddy-tracker-derived radius. Stage 1 uses py-eddy-tracker-derived radius as the denominator. Only after the SWOT rim is independently defined does Stage 2 use SWOT-rim-normalized coordinates.
-
-2. **Rim sharpness**: enhancement of `|∇SSH|` or geostrophic speed in the annular zone (r/R ~ 0.7–1.3, where R is py-eddy-tracker-derived radius) relative to the eddy core (r/R < 0.3) and far exterior (r/R > 1.5). Sensitivity tests repeat this in SWOT-rim-normalized coordinates after the rim is independently detected.
-
-3. **Rim asymmetry / azimuthal coherence**: azimuthal variance of rim radius, angular coverage of coherent high-gradient rim segments, or deviation from the py-eddy-tracker contour after common filtering. This metric directly tests the "less axisymmetric" component of H1.
-
-Supplementary shape diagnostics (perimeter-to-area circularity, filament-like protrusion index) may be reported in an appendix but do not drive Stage 1 conclusions.
-
-**Step 1.3 — Fair-resolution null-model test**
-
-Filter SWOT SSH to region-dependent DUACS effective resolution, with sensitivity tests at 100, 150, and 200 km cutoff wavelengths. The fair-resolution test should include not only low-pass filtering, but also common gridding, common masks, matched time windows, and sensitivity to filter type. The comparison should be interpreted as a resolution-and-mapping test, not a pure resolution test. If rim signals disappear under fair filtering, the Stage 1 null cannot be rejected, and the project pivots (see Decision Gates).
-
-**Step 1.4 — Negative controls**
-
-- **Random-center control**: repeat rim metrics with eddy centers randomly shifted within ±2R, avoiding overlap with the original rim and preserving regional sampling.
-- **Azimuthal rotation control**: rotate the SSH field around the eddy center; verify that rim asymmetry signals disappear under randomization.
-- **Random-time control**: pair SWOT rims with tracer fields from unrelated dates in the same season to check for coincidental alignment.
-- **Tracer-shift control**: spatially shift tracer anomalies relative to the SSH rim while preserving regional gradients.
-- **No-eddy / weak-gradient control**: repeat the pipeline in nearby regions without detected eddies or with weak SSH gradients.
-- **Across-swath artifact check**: test whether apparent rim sharpness, offset, or asymmetry varies systematically with SWOT across-swath position or noise floor.
-
-**Step 1.5 — Background front control**
-
-Many eddy-rim tracer anomalies may reflect eddy–background-front intersection rather than self-contained eddy boundary dynamics. Both are physically interesting but are different claims. Two tests:
-
-1. **Residual-anomaly test**: remove large-scale background SST/Chl gradient via local anomaly (de-season, de-trend, subtract smoothed field) before rim compositing.
-2. **Front-conditioned test**: quantify whether rim signals remain after conditioning on pre-existing background front strength and orientation.
-
-This separates "the eddy rim organizes anomalies independently" from "the eddy rim matters where it intersects a background front."
-
-### Stage 2: Tracer–rim response
-
-**Step 2.1 — Collocation with lag windows**
-
-For eddies with well-characterized Stage 1 rim, collocate SST, chlorophyll, and PACE using time windows of 0, ±1, ±3, and ±7 days relative to the SWOT snapshot. SST is expected near-synchronous; chlorophyll may respond with 1–7 day lag; PACE phytoplankton community structure may reflect longer water-mass history. Account for eddy propagation between SWOT and tracer observation times.
-
-**Step 2.2 — Rim-conditioned composite analysis**
-
-Composite tracer anomalies in rim-aligned coordinates (radial distance normalized by each eddy's independently detected SWOT rim radius). Stratify by rim strength (sharp vs. weak), polarity (AE/CE), region, and season. Tracer anomaly sign is not expected to be universal across polarities and regions — rim localization and anomaly sign should be tested separately.
-
-The primary Stage 2 test is whether rim-aligned composites produce a stronger and more radially localized tracer anomaly peak than py-eddy-tracker-radius-aligned or center-aligned composites under identical samples. Use eddy-level bootstrap or permutation tests; do not treat pixels as independent. Bring all tracer products to a fair common resolution and report sample size by tracer, region, season, and lag window.
-
-PACE is treated as exploratory unless cloud-free collocation sample size meets a pre-defined threshold.
-
-**Step 2.3 — Multi-tracer synthesis**
-
-Cross-compare SST, chlorophyll, and PACE responses. If multiple independent tracers concentrate at the same SSH-defined rim position, the case for rim-organized eddy impacts is substantially strengthened.
-
-## Decision Gates
-
-- **Stage 1 → Stage 2 gate**: Proceed to Stage 2 only if Stage 1 rim offset, sharpness, and asymmetry remain significant after fair filtering and negative controls.
-- **PACE gate**: Treat PACE as exploratory unless cloud-free collocations exceed a pre-defined sample threshold.
-- **Pivot gate**: If SWOT vs. py-eddy-tracker rim differences vanish after fair filtering, pivot to a resolution-sensitivity or null-result note rather than forcing the rim claim.
-
-## Claims and Guardrails
-
-This section defines what each stage can and cannot claim, to prevent overstatement.
-
-1. **Stage 1 can claim only**: SWOT resolves Eulerian SSH-gradient rims that are sharper, less axisymmetric, and potentially offset from py-eddy-tracker-derived effective radii, after fair-resolution and negative-control checks. It cannot claim material trapping boundaries, Lagrangian coherent structures, or transport barriers.
-2. **Stage 1 cannot claim**: the discovery of a new ocean phenomenon. The claim is a resolution-driven refinement to the spatial alignment of eddy composites, not a new class of ocean dynamics.
-3. **"Filament" language**: Before tracer validation, use only "filament-like SSH protrusions" or "boundary extensions." The term "filament" should be reserved for tracer-confirmed structures.
-4. **"Leakage" language**: Leakage zones require Lagrangian particle experiments, surface drifters, or model velocity fields. They are outside the core claim of this project.
-5. **Tracer alignment is not causality**: Stage 2 can claim statistical co-location or organization. It cannot by itself prove that the rim caused the tracer anomaly.
-6. **PACE interpretation is exploratory**: PACE-derived ecological or community-structure interpretations require retrieval-quality controls, cloud/sampling checks, and independent consistency with SST/chlorophyll or in-situ data.
-7. **Pivot condition**: If SWOT vs. py-eddy-tracker rim differences disappear after fair filtering to DUACS effective resolution, the project pivots to a resolution-sensitivity or null-result note rather than forcing the rim claim.
-8. **Nature Communications-level claim requires Stage 2**: A paper claiming that tracer anomalies are rim-organized must present cross-region, cross-tracer statistical evidence. Stage 1 alone supports an observational/methods paper (Ocean Science, GRL, JGR Oceans, Remote Sensing of Environment).
-
-## Questions for Collaborators
-
-1. Is `|∇SSH|`, geostrophic speed, or speed-contour displacement the best primary rim definition?
-2. Should L2 Expert or L3 Unsmoothed be the primary SWOT product for rim detection?
-3. What is the fairest DUACS/py-eddy-tracker comparison strategy — filtering, mapping, or both?
-4. Should Stage 2 be strictly gated on Stage 1 signal strength, or proceed in parallel?
-5. Which tracer should be the primary Stage 2 test: SST, chlorophyll, or should both carry equal weight?
-6. Is the py-eddy-tracker maximum-speed contour or the py-eddy-tracker-derived effective radius the more appropriate AVISO-side baseline for rim offset?
-
-## Expected Outputs
-
-### Stage 1
-- 3-region × 3-metric prototype: co-located SWOT SSH, `|∇SSH|`, py-eddy-tracker contours, and tracer anomaly maps for pilot eddies.
-- Rim offset, sharpness, and asymmetry statistics across pilot regions.
-- Fair-resolution sensitivity curves (100/150/200 km filtering).
-- Negative control results (random-center, azimuthal rotation, random-time, no-eddy, across-swath).
-- Data-source and access note.
-
-### Stage 2
-- Rim-conditioned composite figures for SST, chlorophyll, and PACE.
-- Statistical comparison: rim-aligned vs. center-aligned composite strength under bootstrap.
-- Multi-tracer synthesis figure.
-
-## Feasibility and Risks
-
-### Critical risks
-
-- **SWOT small-scale SSH includes tides, internal waves, noise, and non-balanced motions.** The analysis must avoid interpreting every fine structure as a quasi-geostrophic eddy rim. Use L2 or L3 Expert/Unsmoothed products with documented noise characteristics. SWOT grid spacing (~2 km) is not the same as effective balanced-flow resolution — gradients and geostrophic speed require product-appropriate filtering.
-
-- **Product-dependence risk**: L3 products may include processing choices and nadir information related to the conventional altimetry system. Use L2 or L3 Expert/Unsmoothed for primary rim detection; treat L3 Basic as a prototyping product.
-
-- **SWOT temporal sampling is sparse.** The 21-day repeat cycle means each eddy is sampled at most a few times per year. Focus on spatial anatomy and snapshot co-location, not lifecycle evolution.
-
-- **Resolution comparison must be fair.** Use region-dependent DUACS effective resolution rather than a single global number. The comparison should include filtering, mapping, masking, and filter-type sensitivity, not just a single low-pass cutoff.
-
-- **High-impact claim requires Stage 2.** If Stage 1 rim signals are weak or inconsistent across regions, the project should publish as a resolution-sensitivity methods paper.
-
-- **Chlorophyll rings are already documented (Xu et al. 2019).** The novelty is not "rings exist," but whether they correspond to a physically sharper, offset SSH rim visible only in SWOT. This distinction must be explicit.
-
-### Manageable risks
-
-- **Eddy–front intersection vs. self-contained rim.** Mitigate via residual-anomaly and front-conditioned tests (Step 1.5). Interpret eddy–front intersection as a physically meaningful mechanism rather than contamination.
-
-- **Rim definitions may be subjective.** Mitigate by using `|∇SSH|` and geostrophic speed maxima — well-understood, physically grounded quantities — rather than novel complexity indices.
-
-- **Tracer matchup sample size.** Use geostationary SST for higher temporal density; report sample sizes transparently by tracer, region, season, and lag window.
-
-- **PACE record length.** PACE (launched 2024) has a short record. Use it as an exploratory case study rather than the sole Stage 2 tracer.
-
-- **SWOT nadir gap.** The ~10 km nadir gap separates the two KaRIn swaths. Large eddies spanning the gap may have incomplete rim coverage. Flag and assess sensitivity.
-
-- **Tracer product mismatch.** SST, chlorophyll, and PACE have different spatial resolution, cloud masks, retrieval errors, and response times. All tracer comparisons need product-specific quality flags and fair-resolution sensitivity tests.
-
-- **Selection bias.** SWOT imagery is visually compelling; there is a real risk of selecting striking examples after seeing the data. Pilot eddies should be selected by pre-declared criteria where possible. Composite significance should be assessed by eddy-level bootstrap or permutation tests, not pixel-level sample size.
-
-- **Tracer sign is not universal.** Chlorophyll response depends on region, season, mixed-layer depth, nutrients, and eddy history. Stage 2 should test rim localization separately from anomaly sign, with polarity, region, and season stratification.
-
-## Contributor Role
-
-The proposer is a mesoscale eddy researcher and can contribute:
-
-- conceptualization of the eddy-rim hypothesis;
-- domain-expert review of eddy dynamics and altimetry interpretation;
-- literature verification across eddy-core compositing, chlorophyll rings, Lagrangian coherent structures, and SWOT validation;
-- physical interpretation and reviewer-style risk assessment;
-- validation of AI-generated scripts and figures.
+---
 
 ## Progress Log
 
 | Date | Stage | Content | Output |
 |---|---|---|---|
-| 2026-06-07 | D0 | Initial idea formed: SWOT-resolved eddy rims vs. AVISO/py-eddy-tracker eddy-core framework | README draft |
-| 2026-06-08 | D0 | Review round 1: converged from "neglected boundary" to "active peripheral rim"; 3 core diagnostics + guardrails | Revised README |
-| 2026-06-08 | D0 | Review round 2 (Codex): softened claims, split nulls, added decision gates, collaborator questions, expanded controls | Revised README |
+| 2026-06-07 | D0 | Initial idea: SWOT-resolved eddy rims vs. AVISO/py-eddy-tracker eddy-core framework | D0 README |
+| 2026-06-08 | D0 | R0 review: reviewer report + editorial decision | `review/reviewer/R0-reviewer-report.md`, `review/editor/R0-editorial-decision.md` |
+| 2026-06-10 | D1 | st_01 PET eddy detection (816 days, 1632 NC) | Job 19588 |
+| 2026-06-10 | D1 | st_02 extract Kuroshio eddy centers (36543) | Job 19590 |
+| 2026-06-11 | D1 | st_03a SWOT coverage scan (2891 passes) | Job 19609 |
+| 2026-06-11 | D1 | st_03b SWOT-eddy matching (7057 pairs) | Job 19610 |
+| 2026-06-12 | D1 | st_03c case selection (16 prototypes) | — |
+| 2026-06-12 | D1 | FIG_01 radial profile comparison (v1 → v2 correction) | 16 figures (Job 19656) |
+| 2026-06-13 | D2 | Stage 1 conclusion: rim-radius offset null/weak; pivot direction discussion | Closeout |
+| 2026-06-14 | D2 | Direction updated: peripheral fine-scale strain enhancement; literature supplemented | DIRECTION.md, literature_survey.md |
+| 2026-06-14 | D2 | R1 review response in preparation | (draft) |
+| 2026-06-15 | D2 | R1 response drafted; repository migrated to H:\Eddy_SWOT\ | `review/R1-response-to-reviewer.md`, CLAUDE.md |
 
-## AI Interaction Log
+---
 
-Key prompt logs should be stored in `projects/p03/logs/` after the project is accepted into the repository.
+## 当前待办（2026-06-15）
 
-## References (seed list — all citations require manual verification before manuscript use)
+**优先: 文档修整 → 提交 PR**
+- [ ] R1-response 措辞修正（每条 major comment 加 Stage-1 status 句 / synthetic-front null）
+- [ ] Commit + push 到 fork（441837297/OpenSCI-Ocean）
+- [ ] 向 pangeo-data/OpenSCI-Ocean 发起 PR
 
-### Classic altimetry eddy framework
-- Chelton, D. B., Schlax, M. G., & Samelson, R. M. (2011). Global observations of nonlinear mesoscale eddies. *Progress in Oceanography*, 91, 167–216. doi:10.1016/j.pocean.2011.01.002
-- Chelton, D. B., Gaube, P., Schlax, M. G., Early, J. J., & Samelson, R. M. (2011). The influence of nonlinear mesoscale eddies on near-surface oceanic chlorophyll. *Science*, 334, 328–332. doi:10.1126/science.1208897
-- Gaube, P., McGillicuddy, D. J., Chelton, D. B., Behrenfeld, M. J., & Strutton, P. G. (2014). Regional variations in the influence of mesoscale eddies on near-surface chlorophyll. *Journal of Geophysical Research: Oceans*, 119. doi:10.1002/2014JC010111
+**下一步: Stage 2 开发（PR 后立即开始）**
+- [ ] 补 `config.yaml`（本地路径，不进 git，参考 `config_template.yaml`）
+- [ ] st_04 Exp 1: 用 7057 SWOT-eddy matches 做 control-subtracted peripheral strain composite
+  - 计算 E(r/R) = P(r/R) − C(r/R)（excess strain profile）
+  - 四类 matched controls
+  - 滤波尺度敏感性（30/50/70/100 km）
+- [ ] HPC: sync 代码 → sbatch 提交（`intel70c`）
 
-### Eddy rings, fronts, and tracer response
-- Xu, G., Dong, C., Liu, Y., Gaube, P., & Yang, J. (2019). Chlorophyll rings around ocean eddies in the North Pacific. *Scientific Reports*, 9, 2056. doi:10.1038/s41598-018-38457-8
-- Zhang, Z., Qiu, B., Klein, P., & Travis, S. (2019). The influence of geostrophic strain on oceanic ageostrophic motion and surface chlorophyll. *Nature Communications*, 10. doi:10.1038/s41467-019-10883-w
-- Jones-Kellett, A. E., & Follows, M. J. (2025). The satellite chlorophyll signature of Lagrangian eddy trapping varies regionally and seasonally within a subtropical gyre. *Ocean Science*, 21, 1141–1166. doi:10.5194/os-21-1141-2025
+**阻塞项: 无。** st_04 可立即开始，数据资产已就绪。
 
-### Eddy boundaries and coherent transport context
-- Beron-Vera, F. J., Olascoaga, M. J., & Goni, G. J. (2008). Oceanic mesoscale eddies as revealed by Lagrangian coherent structures. *Geophysical Research Letters*, 35. doi:10.1029/2008GL033957
-- Haller, G., & Beron-Vera, F. J. (2013). Coherent Lagrangian vortices: The black holes of turbulence. *Journal of Fluid Mechanics*, 731, R4. doi:10.1017/jfm.2013.391
-- Abernathey, R., & Haller, G. (2018). Transport by Lagrangian vortices in the Eastern Pacific. *Journal of Physical Oceanography*, 48, 667–685. doi:10.1175/JPO-D-17-0102.1
+**Tracer response 状态: gated extension。**
+SST/Chl-a 数据尚未下载。Exp 4（tracer response）仅在 Exp 1-3 证实 excess peripheral strain 存在后启动。
 
-### SWOT, DUACS, and eddy atlas data references
-- Pegliasco, C., Delepoulle, A., Mason, E., Morrow, R., Faugère, Y., & Dibarboure, G. (2022). META3.1exp: A new global mesoscale eddy trajectory atlas derived from altimetry. *Earth System Science Data*, 14, 1087–1107. doi:10.5194/essd-14-1087-2022
-- Dibarboure, G., Anadon, C., Briol, F., et al. (2025). Blending 2D topography images from the Surface Water and Ocean Topography (SWOT) mission into the altimeter constellation with the Level-3 multi-mission DUACS. *Ocean Science*, 21, 283–323. doi:10.5194/os-21-283-2025
-- Wang, Y., Zhang, S., & Jia, Y. (2025). Enhanced resolution capability of SWOT sea surface height measurements and their application in monitoring ocean dynamics variability. *Ocean Science*, 21, 931–944. doi:10.5194/os-21-931-2025
-- Archer, M., Wang, J., Klein, P., Dibarboure, G., & Fu, L.-L. (2025). Wide-swath satellite altimetry unveils global submesoscale ocean dynamics. *Nature*, 640, 691–696. doi:10.1038/s41586-025-08722-8
-- AVISO/DUACS. (2024). SWOT Level-3 KaRIn Low Rate SSH Basic / Expert data products. CNES / AVISO+.
-- Surface Water and Ocean Topography Mission. (2025). SWOT Level 2 KaRIn Low Rate Sea Surface Height Data Product, Version D. PO.DAAC. doi:10.5067/SWOT-SSH-D
+---
 
-### PACE / ocean color context
-- Werdell, P. J., Behrenfeld, M. J., Bontempi, P. S., et al. (2019). The Plankton, Aerosol, Cloud, ocean Ecosystem Mission: Status, science, advances. *Bulletin of the American Meteorological Society*, 100, 1775–1794. doi:10.1175/BAMS-D-18-0056.1
+## 数据
+
+所有数据均为公开数据。原始数据不上传 repo。
+
+### Stage 1（已完成）
+
+- SWOT KaRIn L3 Expert v3.0 (2 km) — 7057 对 SWOT-eddy matches
+- AVISO/DUACS gridded SLA + geostrophic currents (CMEMS DT2024)
+- py-eddy-tracker on DUACS（PET registry）
+
+### Stage 2（计划中）
+
+- **SST**: GHRSST MUR (~1 km) 或 Sentinel-3 SLSTR (1 km) — 需评估云覆盖对 warm ring signal 的影响
+- **Ocean color / Chl-a**: MODIS/VIIRS — log Chl, ±1–3 day lag
+- 代码: SwotDiag (Carli 2025, MIT license)
+
+---
+
+## 参考文献（经核验）
+
+### 核心框架文献（Stage 2 新增）
+
+- **Zhang, Z., Qiu, B., Klein, P., & Travis, S. (2019).** The influence of geostrophic strain on oceanic ageostrophic motion and surface chlorophyll. *Nature Communications*, 10, 2838. doi:10.1038/s41467-019-10883-w
+- **Dong, H., Zhou, M., McWilliams, J.C., et al. (2025).** Warm rings in mesoscale eddies in a cold straining ocean. *Nature Communications*, 16, 9252. doi:10.1038/s41467-025-64308-y
+- **Archer, M., Wang, J., Klein, P., Dibarboure, G., & Fu, L.-L. (2025).** Wide-swath satellite altimetry unveils global submesoscale ocean dynamics. *Nature*, 640, 691–696. doi:10.1038/s41586-025-08722-8
+- **Han, X., Wang, Q., Stewart, A.L., et al. (2026).** High coastal eddy activity around Antarctica revealed by SWOT. *National Science Review*, 13(9), nwag181. doi:10.1093/nsr/nwag181
+- **Liu, Y., He, Q., Zhan, W., et al. (2026).** Hidden fine-scale transport pathways and biological connectivity revealed by SWOT. *Geophysical Research Letters*, 53(10). doi:10.1029/2025GL121208
+- **Chen, X., & Chen, G. (2025).** On the ambiguity of oceanic eddy polarity. *JGR Oceans*, 130. doi:10.1029/2024JC022239
+
+### SWOT 观测方法
+
+- **De Marez, C., et al. (2026).** SWOT reveals mesoscale eddy hotspots and deserts in subpolar and polar oceans. *Ocean Science*, 22, 1515–2026. doi:10.5194/os-22-1515-2026
+- **Carli, T., et al. (2025).** Southern Ocean 3D eddy diagnostics derived from SWOT. *JGR Oceans*. doi:10.1029/2024JC022307
+- **Jensen, M., et al. (2025).** SWOT observations unveil small mesoscale variability on the East Greenland shelf. *GRL*. doi:10.1029/2025GL118573
+- **Verger-Miralles, E., et al. (2025).** SWOT enhances small-scale eddy detection in the Mediterranean Sea. *GRL*. doi:10.1029/2025GL116480
+
+### 经典涡旋 / 示踪物文献
+
+- Chelton, D. B., et al. (2011a). *Progress in Oceanography*, 91, 167–216. doi:10.1016/j.pocean.2011.01.002
+- Chelton, D. B., et al. (2011b). *Science*, 334, 328–332. doi:10.1126/science.1208897
+- Gaube, P., et al. (2014). *JGR Oceans*, 119. doi:10.1002/2014JC010111
+- Xu, G., et al. (2019). *Scientific Reports*, 9, 2056. doi:10.1038/s41598-018-38457-8
+- Pegliasco, C., et al. (2022). *ESSD*, 14, 1087–1107. doi:10.5194/essd-14-1087-2022
+
+### 概念框架综述
+
+- **Zhang, Z., et al. (2024).** Three-dimensional structure of oceanic mesoscale eddies. *Ocean-Land-Atmosphere Research*, 0051. doi:10.34133/olar.0051
+- **Dong, H., et al. (2025).** Oceanic mesoscale eddies. *Ocean-Land-Atmosphere Research*, 0081. doi:10.34133/olar.0081
+
+---
+
+## 审稿状态
+
+| 轮次 | 文件 | 日期 | 状态 |
+|------|------|------|------|
+| R0 Reviewer | `review/reviewer/R0-reviewer-report.md` | 2026-06-08 | 已接收 |
+| R0 Editor | `review/editor/R0-editorial-decision.md` | 2026-06-08 | 已接收 |
+| R1 Response | `review/R1-response-to-reviewer.md` | 2026-06-15 | ✅ 已起草 |
+
+---
+
+> **冻结版科学方向**: 见 `DIRECTION.md`（v0.2, 2026-06-14）
+> **详细文献调研**: 见 `literature/literature_survey.md`
+> **代码路线图**: 见 HPC 本地 `H:\Eddy_SWOT\swot_code\README.md`
