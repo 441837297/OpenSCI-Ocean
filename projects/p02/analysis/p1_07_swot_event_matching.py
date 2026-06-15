@@ -12,7 +12,7 @@ Output: data/swot/swot_event_matches.json
   coverage_score (valid_pct × proximity weight)
 
 NOTE: This script requires SWOT L3 data on the remote WSL machine.
-Run on remote: ssh think@100.111.65.40
+Run on remote WSL.
 Data path: /mnt/d/v2_0_1/Basic/
 """
 import json

@@ -1,16 +1,15 @@
 # P04 v2 数据路径登记（DATA_PATHS.md）
 
 > 约定：**大体积数据下载一律在远程办公室台式机执行**，不占用 Mac 本地磁盘。
-> 远程访问：`ssh think@100.111.65.40`，WSL 内用户为 `yangleir`。
 > 小型衍生产物（JSON/PNG/CSV）回传本仓库；大型 .nc 留在远程。
 
 ## 远程（办公室 Windows / WSL）
 
 | 数据集 | 远程路径（WSL 视角） | 变量 | 时段 | 分辨率 | 生成脚本 | 状态 |
 |---|---|---|---|---|---|---|
-| ERA5 波浪产品 | `/home/yangleir/p04v2_data/era5_waves_SO_1979_2024.nc` | SWH, MWP, MWD | 1979-2024 | 0.5°, 月均 | `analysis/p04v2_download_era5_waves.py` | ❌ 待下载 |
-| ERA5 10m 风 | `/home/yangleir/p04v2_data/era5_wind_SO_1979_2024.nc` | u10, v10 | 1979-2024 | 0.25°, 月均 | 同上 | ❌ 待下载 |
-| ERA5 海冰浓度 | `/home/yangleir/p04v2_data/era5_sic_SO_1979_2024.nc` | siconc | 1979-2024 | 0.25°, 月均 | 同上 | ❌ 待下载 |
+| ERA5 波浪产品 | (远程 WSL `p04v2_data/`) | SWH, MWP, MWD | 1979-2024 | 0.5°, 月均 | `analysis/p04v2_download_era5_waves.py` | ❌ 待下载 |
+| ERA5 10m 风 | (远程 WSL `p04v2_data/`) | u10, v10 | 1979-2024 | 0.25°, 月均 | 同上 | ❌ 待下载 |
+| ERA5 海冰浓度 | (远程 WSL `p04v2_data/`) | siconc | 1979-2024 | 0.25°, 月均 | 同上 | ❌ 待下载 |
 
 ## 本地 Mac（已有，v1 遗留可复用的小文件）
 
@@ -32,9 +31,9 @@
 
 ## 远程→本地回传方式
 
-- **坚果云中转**：远程 `cp *.nc /mnt/e/Documents/temp/` → Mac 自动同步到 `/Users/zhulin/Nutstore Files/Documents/temp/`
-- **小文件 scp**：`scp think@100.111.65.40:path ./local_path`
-- **结果 JSON/CSV**：直接 scp 回传后 git commit
+- **坚果云中转**：远程结果文件放入坚果云同步目录，Mac 自动同步
+- **小文件 scp**：从远程 scp 回传到本地
+- **结果 JSON/CSV**：直接回传后 git commit
 
 ## CDS API 凭证
 

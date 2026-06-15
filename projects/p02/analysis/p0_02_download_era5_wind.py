@@ -13,8 +13,10 @@ For 2023-2025 daily, use CDS API or ARCO-ERA5 zarr on GCS.
 import xarray as xr
 import os
 import numpy as np
+from pathlib import Path
 
-OUT_DIR = "/Users/zhulin/aitest/OpenSCI-Ocean/projects/p02/data/era5"
+_ROOT = Path(__file__).resolve().parent.parent
+OUT_DIR = str(_ROOT / "data/era5")
 os.makedirs(OUT_DIR, exist_ok=True)
 
 out_file = os.path.join(OUT_DIR, "era5_wind_stress_eqpac_2023_2025.nc")
