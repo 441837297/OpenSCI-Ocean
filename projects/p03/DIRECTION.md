@@ -120,6 +120,17 @@ Stage 1 结果（2026-06-13）:
 5. **Carli et al. 2025** — JGR Oceans. SwotDiag 拟合核方法。梯度计算核心代码。
 6. **Han et al. 2026** — NSR. SWOT Antarctic eddy activity。论文结构模板（surface activity → hidden process）。
 
+## 9. 与 Zhang 2019 的定位关系（2026-06-16 新增）
+
+Zhang 2019 证明了 **strain 是海洋细尺度过程的关键组织变量**——全场 S_g 越高，ageostrophic KE 和 Chl 越强。但 Zhang 2019 不问"strain 围着涡旋组织吗？"
+
+P03 的增量：
+1. **从全场 → eddy-centric**：Zhang 2019 按 S_g quantile 分 bin，P03 按涡旋中心做 annulus composite
+2. **从无 control → control-subtracted**：Zhang 2019 不需要 control（strain 是自变量），P03 引入 displaced control 分离 eddy-associated 信号
+3. **涡核-外围二分**：Zhang 2019 不区分，P03 发现涡核 strain 显著低于背景（新发现）
+4. **SWOT 分辨率**：2 km vs 0.25°，直接验证低分数据推断的 fine-scale structure
+5. **互补而非替代**：Zhang 2019 的 strain→tracer 框架是 P03 Exp 4 的理论基础
+
 ---
 
 *冻结日期: 2026-06-14 | 版本: v0.2*

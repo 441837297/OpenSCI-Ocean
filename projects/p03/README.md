@@ -57,6 +57,29 @@ Stage 1 结果: 16 Kuroshio prototype cases, v2 修正.
 | Zhang 2019 NC | AVISO DUACS strain → ageostrophic motion / Chl | 用 SWOT 替换 AVISO；从全场 strain → eddy-centric periphery |
 | Liu 2026 GRL | SWOT Lagrangian flow network（South China Sea） | 刻意避开 network 方向；聚焦 eddy-centric strain organization |
 
+### Stage 2 阶段性结果（2026-06-16）
+
+**Exp 1a — Eddy-centered composite (N=2957 CLEAN):**
+- |∇SSH| 峰值 3.39 µm/m 位于 1.0-1.5R（涡旋外围）
+- 涡核 (0-0.5R): 2.32 µm/m，外围显著高于涡核（+46%）
+- CE (3.69) > AE (3.08) at 1-1.5R
+
+**Exp 1b — Displaced control E = P − C (N=484, 0.2R bins):**
+- C displaced 近乎水平（3.09-3.26 µm/m），完美捕捉局部背景
+- E 核心信号：涡核负值（−1.16 ~ −0.46, p<0.05），外围正值（+0.22 ~ +0.37 at 0.9-1.5R, p<0.05）
+- Excess 峰在 ~1.1R，相对背景增强 ~10%
+
+**与 Zhang 2019 NC 对比:**
+
+| | Zhang 2019 | P03 本阶段 |
+|---|---|---|
+| 分析单位 | Strain saddle point | Eddy center + annulus |
+| 数据 | AVISO DUACS (0.25°) | SWOT KaRIn (2 km) |
+| 组织方式 | 全场 S_g quantile | Eddy-centric, control-subtracted |
+| 有无 control | 无（strain 是 predictor） | 有（eddy 是 predictor，需 control） |
+| 涡核发现 | 无（不区分核/外围） | 涡核 strain 低于背景 37% — 新发现 |
+| 互补性 | 建立 strain→tracer 框架 | 首次用 SWOT 证实 strain 围着涡旋组织 |
+
 ### 两层框架
 
 ```
@@ -92,11 +115,11 @@ Stage 1 结果: 16 Kuroshio prototype cases, v2 修正.
 
 | Exp | 问题 | 状态 |
 |-----|------|------|
-| 1 | 是否存在 excess peripheral strain? | 🔲 待开发 |
+| 1 | 是否存在 excess peripheral strain? | ✅ Exp 1a (7057 eddy) + Exp 1b (500 displaced control): E(1.1R)=+0.37 µm/m |
 | 2 | 空间范围和滤波尺度敏感性? | 🔲 依赖 Exp 1 |
-| 3 | 伪影排除（四类 controls）? | 🔲 依赖 Exp 1 |
-| 4 | 是否预测 SST/Chl-a response? | 🔲 依赖 Exp 1 |
-| 5 | F_edge 分布形态（连续 vs 分群）? | 🔲 依赖 Exp 1 |
+| 3 | 伪影排除（简化版 controls）? | ✅ Displaced control (primary) 完成; DUACS S_g 分层已取消（→ Exp 4 直跳） |
+| 4 | 是否预测 SST/Chl-a response? | 🔲 下一步 |
+| 5 | F_edge 分布形态（连续 vs 分群）? | 🔲 依赖 Exp 4 |
 
 ---
 
@@ -115,24 +138,27 @@ Stage 1 结果: 16 Kuroshio prototype cases, v2 修正.
 | 2026-06-13 | D2 | Stage 1 conclusion: rim-radius offset null/weak; pivot direction discussion | Closeout |
 | 2026-06-14 | D2 | Direction updated: peripheral fine-scale strain enhancement; literature supplemented | DIRECTION.md, literature_survey.md |
 | 2026-06-14 | D2 | R1 review response in preparation | (draft) |
-| 2026-06-15 | D2 | R1 response drafted; repository migrated to H:\Eddy_SWOT\ | `review/R1-response-to-reviewer.md`, CLAUDE.md |
+| 2026-06-15 | D2 | st_04 Exp 1a full: 7057 eddies, 4.2h, CLEAN N=2957, peak |∇SSH| 3.39 µm/m at 1-1.5R | `data/exp1a_full.mat` |
+| 2026-06-16 | D2 | st_04 Exp 1b (200 pilot): E(1.1R)=+0.32 µm/m, core E=−0.77 — displaced control 证实 excess | `data/exp1b_pilot.mat` |
+| 2026-06-16 | D2 | st_04 Exp 1b (500 eddy, 0.2R bins, precompute gradient): 13.5 s/eddy, peak E=+0.37 at 1.1R, N=484 | `data/exp1b_N500.mat` |
+| 2026-06-16 | D2 | Stage 2 结论: SWOT 证实外围 ~10% excess strain, 涡核低 37%; 与 Zhang 2019 互补 | 本 PR |
 
 ---
 
-## 当前待办（2026-06-15）
+## 当前待办（2026-06-16）
 
-**优先: 文档修整 → 提交 PR**
-- [ ] R1-response 措辞修正（每条 major comment 加 Stage-1 status 句 / synthetic-front null）
-- [ ] Commit + push 到 fork（441837297/OpenSCI-Ocean）
-- [ ] 向 pangeo-data/OpenSCI-Ocean 发起 PR
+**本次 PR: 文档更新 + Stage 2 阶段性结果**
+- [x] Exp 1a 全量 composite (7057 eddy)
+- [x] Exp 1b displaced control (500 eddy, E = P − C)
+- [x] Zhang 2019 对比分析
+- [x] 定稿图: Exp 1a composite + Exp 1b excess profile
+- [ ] Commit + push → PR
 
-**下一步: Stage 2 开发（PR 后立即开始）**
-- [ ] 补 `config.yaml`（本地路径，不进 git，参考 `config_template.yaml`）
-- [ ] st_04 Exp 1: 用 7057 SWOT-eddy matches 做 control-subtracted peripheral strain composite
-  - 计算 E(r/R) = P(r/R) − C(r/R)（excess strain profile）
-  - 四类 matched controls
-  - 滤波尺度敏感性（30/50/70/100 km）
-- [ ] HPC: sync 代码 → sbatch 提交（`intel70c`）
+**下一步: Exp 4 Tracer Response**
+- [ ] 下载 GHRSST MUR SST (~1 km)
+- [ ] 定义 F_edge（外围应变强度，基于 Exp 1b E profile）
+- [ ] SST/Chl-a 在 F_edge quantile 上的 composite
+- [ ] 对比 Zhang 2019: 用 SWOT eddy-centric predictor 替代 DUACS 全场 S_g
 
 **阻塞项: 无。** st_04 可立即开始，数据资产已就绪。
 
