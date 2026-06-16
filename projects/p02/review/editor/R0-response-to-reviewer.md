@@ -2,7 +2,7 @@
 
 **项目:** P02 — Robustness and Breakdown of Topological Equatorial Waves
 **审查报告:** `review/reviewer/R0-external-reviewer-report.md`
-**回复人:** 项目维护者 (yangleir)
+**回复人:** 项目维护者
 **日期:** 2026-06-08
 
 ---

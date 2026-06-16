@@ -28,11 +28,11 @@
 | 项 | 值 |
 |---|---|
 | **执行环境** | 混合（本地 Mac + 远程 WSL） |
-| **远程连接** | `ssh think@100.111.65.40`（Tailscale） |
+| **远程连接** | 远程台式机（Tailscale） |
 | **本地 Python** | 3.14.3 (homebrew) |
 | **本地关键依赖** | xarray, numpy, scipy, matplotlib, cartopy, netCDF4, copernicusmarine |
-| **原始数据目录** | `/Users/zhulin/aitest/OpenSCI-Ocean/data/` |
-| **输出目录** | `/Users/zhulin/aitest/OpenSCI-Ocean/projects/p04/` |
+| **原始数据目录** | `data/` |
+| **输出目录** | `./` (project root) |
 
 ### 2.6 数据策略
 

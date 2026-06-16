@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 P04 v2: Download ERA5 monthly wave products for Southern Ocean
-Run on remote desktop WSL (think@100.111.65.40)
+Run on remote desktop WSL
 
 Products:
   - Significant wave height (SWH)

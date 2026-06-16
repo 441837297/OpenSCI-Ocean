@@ -6,12 +6,12 @@ project:
   root: .  # relative to this file
 
 paths:
-  # Mac local
-  mac:
-    data: /Users/zhulin/aitest/OpenSCI-Ocean/projects/p02/data
-    figures: /Users/zhulin/aitest/OpenSCI-Ocean/projects/p02/figures
-    manuscript_figures: /Users/zhulin/aitest/OpenSCI-Ocean/projects/p02/manuscript/figures
-  # Remote WSL (think@100.111.65.40)
+  # Mac local (relative to project root)
+  local:
+    data: data
+    figures: figures
+    manuscript_figures: manuscript/figures
+  # Remote WSL
   wsl:
     swot_raw: /mnt/d/v2_0_1/Basic
     data: /home/think/projects/p02/data

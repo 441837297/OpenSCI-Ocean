@@ -8,9 +8,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import os
+from pathlib import Path
 
-DATA_DIR = "/Users/zhulin/aitest/OpenSCI-Ocean/projects/p02/data/duacs"
-FIG_DIR = "/Users/zhulin/aitest/OpenSCI-Ocean/projects/p02/figures"
+_ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = str(_ROOT / "data/duacs")
+FIG_DIR = str(_ROOT / "figures")
 
 ds = xr.open_dataset(os.path.join(DATA_DIR, "duacs_eqpac_daily_2023_2025.nc"))
 sla = ds["sla"]

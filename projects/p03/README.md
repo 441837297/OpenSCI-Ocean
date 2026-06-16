@@ -57,7 +57,7 @@ Stage 1 结果: 16 Kuroshio prototype cases, v2 修正.
 | Zhang 2019 NC | AVISO DUACS strain → ageostrophic motion / Chl | 用 SWOT 替换 AVISO；从全场 strain → eddy-centric periphery |
 | Liu 2026 GRL | SWOT Lagrangian flow network（South China Sea） | 刻意避开 network 方向；聚焦 eddy-centric strain organization |
 
-### Stage 2 阶段性结果（2026-06-16）
+### Exp 1 / 物理层 pilot 结果（2026-06-16）
 
 **Exp 1a — Eddy-centered composite (N=2957 CLEAN):**
 - |∇SSH| 峰值 3.39 µm/m 位于 1.0-1.5R（涡旋外围）
@@ -117,7 +117,7 @@ Stage 1 结果: 16 Kuroshio prototype cases, v2 修正.
 |-----|------|------|
 | 1 | 是否存在 excess peripheral strain? | ✅ Exp 1a (7057 eddy) + Exp 1b (500 displaced control): E(1.1R)=+0.37 µm/m |
 | 2 | 空间范围和滤波尺度敏感性? | 🔲 依赖 Exp 1 |
-| 3 | 伪影排除（简化版 controls）? | ✅ Displaced control (primary) 完成; DUACS S_g 分层已取消（→ Exp 4 直跳） |
+| 3 | 伪影排除（简化版 controls）? | 🔶 Displaced control 完成; same-swath random / background-strain matched / isolated-eddy controls pending |
 | 4 | 是否预测 SST/Chl-a response? | 🔲 下一步 |
 | 5 | F_edge 分布形态（连续 vs 分群）? | 🔲 依赖 Exp 4 |
 
@@ -141,13 +141,13 @@ Stage 1 结果: 16 Kuroshio prototype cases, v2 修正.
 | 2026-06-15 | D2 | st_04 Exp 1a full: 7057 eddies, 4.2h, CLEAN N=2957, peak |∇SSH| 3.39 µm/m at 1-1.5R | `data/exp1a_full.mat` |
 | 2026-06-16 | D2 | st_04 Exp 1b (200 pilot): E(1.1R)=+0.32 µm/m, core E=−0.77 — displaced control 证实 excess | `data/exp1b_pilot.mat` |
 | 2026-06-16 | D2 | st_04 Exp 1b (500 eddy, 0.2R bins, precompute gradient): 13.5 s/eddy, peak E=+0.37 at 1.1R, N=484 | `data/exp1b_N500.mat` |
-| 2026-06-16 | D2 | Stage 2 结论: SWOT 证实外围 ~10% excess strain, 涡核低 37%; 与 Zhang 2019 互补 | 本 PR |
+| 2026-06-16 | D2 | Exp 1 结论: SWOT 观测到外围 ~10% SSH-gradient excess, 涡核低 37%; apparent strain proxy pending; 与 Zhang 2019 互补 | 本 PR |
 
 ---
 
 ## 当前待办（2026-06-16）
 
-**本次 PR: 文档更新 + Stage 2 阶段性结果**
+**本次 PR: 文档更新 + Exp 1 物理层 pilot 结果**
 - [x] Exp 1a 全量 composite (7057 eddy)
 - [x] Exp 1b displaced control (500 eddy, E = P − C)
 - [x] Zhang 2019 对比分析

@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
 import os
+from pathlib import Path
 
 mpl.rcParams.update({
     "font.family": "sans-serif",
@@ -13,7 +14,7 @@ mpl.rcParams.update({
     "axes.linewidth": 0.6, "legend.frameon": False,
 })
 
-BASE = "/Users/zhulin/aitest/OpenSCI-Ocean/projects/p02"
+BASE = str(Path(__file__).resolve().parent.parent.parent)
 OUT = os.path.join(BASE, "manuscript", "figures")
 dec = np.load(os.path.join(BASE, "data/duacs/spectral_decomposition.npz"), allow_pickle=True)
 

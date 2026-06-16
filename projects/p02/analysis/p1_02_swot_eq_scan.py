@@ -1,6 +1,6 @@
 """
 P1-02: Scan SWOT L3 data for equatorial Pacific passes
-Run on remote WSL: python3 /mnt/e/Documents/temp/p1_02_swot_eq_scan.py
+Run on remote WSL
 """
 import xarray as xr
 import numpy as np

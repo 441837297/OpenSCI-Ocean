@@ -1,7 +1,6 @@
 # P02 数据路径登记（DATA_PATHS.md）
 
 > 约定（用户指示，2026-06-10）：**新的数据下载一律在远程办公室台式机执行**，不占用 Mac 本地磁盘。
-> 远程访问：`ssh think@100.111.65.40`，WSL 内用户为 `yangleir`（详见 office-windows-remote skill）。
 > 小型衍生产物（JSON/PNG）回传本仓库；大型 .nc 留在远程 D 盘（根 .gitignore 忽略所有 *.nc）。
 
 ## 远程（办公室 Windows，D 盘 / WSL `/mnt/d/`）
@@ -26,12 +25,7 @@
 | 事件目录 | `data/kelvin_event_catalog_deduped.json` | 7 个去重事件 + WWB 标记 | p1_04 / p1_05 / p1_06b |
 | 鲁棒性指标 | `data/duacs/robustness_metrics_v2.json` | amp_ratio/coherence，Kelvin + 3 对照组 | p3_03 |
 
-## CMEMS 凭证
-
-- Mac：`~/.copernicusmarine/.copernicusmarine-credentials`
-- 远程 WSL：`~/.copernicusmarine/.copernicusmarine-credentials`（2026-06-10 从 Mac 复制）
-
 ## 回传约定
 
-远程跑出的小型结果（JSON/PNG/事件目录）通过 stdin/scp 回传本仓库 `data/` 与 `figures/` 并 commit；
-或经坚果云 `E:\Documents\reseach\` ↔ `/Users/zhulin/Nutstore Files/Documents/reseach/` 同步。
+远程跑出的小型结果（JSON/PNG/事件目录）通过 scp 回传本仓库 `data/` 与 `figures/` 并 commit；
+或经坚果云同步。
