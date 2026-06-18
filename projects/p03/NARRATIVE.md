@@ -6,7 +6,7 @@
 
 ## 一句话
 
-中尺度涡旋不是孤立的旋转体——它们的外围是一个被传统观测隐藏的应变活跃带，SWOT 第一次让我们在统计意义上看见了这个带，并检验它是否独立预测海表温度和叶绿素响应。
+中尺度涡旋不是孤立的旋转体——它们的外围是一个被传统观测隐藏的应变活跃带。SWOT 在 Kuroshio CLEAN 样本中揭示了统计稳健的涡旋相关外围应变增强，物理层信号已在双变量、双独立 control、滤波敏感性检验下通过。下一步检验它是否独立预测海表温度和叶绿素响应。
 
 ## The Story Arc（五幕结构）
 
@@ -36,14 +36,9 @@ SWOT KaRIn 宽幅高度计以 ~2 km 网格分辨率提供了二维 SSH 场（Arc
 
 ### 第四幕：涡旋外围应变增强——从假说到证据
 
-我们将 7,057 个 SWOT–涡旋匹配对的外围（1.0–2.0 R 环带）细尺度应变率与四类 matched controls 对比：
+我们将 2,956 个 CLEAN SWOT–涡旋匹配对的外围（0.9–1.5 R 环带）细尺度应变率与独立 matched controls 对比。已完成 displaced control（局地平移 3–5R）和 same-swath random control，以及三项加固诊断：方位角连续性（control-subtracted sector excess，确认信号不对称不上 halo）、vorticity/OW 分解（Q_OW 分离 rotation-core 与 strain-periphery）、SwotDiag 求导一致性（r=0.85）。Background-strain matched 和 isolated-eddy subset 为下一步加固项。
 
-- **同 swath 随机中心**（排除观测几何噪声）
-- **局地平移中心**（排除大尺度流系和区域 EKE 背景）
-- **背景应变匹配**（排除"涡旋本来就偏好高应变区域"的选择偏差）
-- **孤立涡旋子集**（排除涡旋-涡旋相互作用和鞍点误判）
-
-如果涡旋外围的应变增强在扣除所有 controls 后仍然显著，那么这种增强就是涡旋自身组织的——不是背景锋面的巧合、不是观测噪声的伪影、不是区域选择偏差。
+如果涡旋外围的应变增强在 matched controls 后仍然显著，那么这种增强可被表述为 eddy-associated，而非仅由随机 swath geometry 或局地背景平均水平解释。
 
 这是第一层（lock-box，纯 SWOT SSH）的结论。
 

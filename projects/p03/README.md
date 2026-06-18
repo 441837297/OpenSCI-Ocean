@@ -7,13 +7,17 @@
 
 | Item | Content |
 |---|---|
-| Current stage | 📦 D2 Deliver — R1 review response submitted, preparing for Stage 2 prototype |
+| Current stage | Radial physical-layer robustness completed; Exp 4 SST data acquisition starting |
+| Exp 4 status | 🔶 MUR L4 download pending |
 | Lead / proposer | Zhisheng Zhang |
 | Target journal | Nature Communications / Science Advances（取决于 Stage 2 跨区域 tracer 证据强度） |
 | Start date | 2026-06-07 |
-| Stage 1 completed | 2026-06-13（rim-radius offset: null/weak） |
-| Direction updated | 2026-06-14（转向 peripheral strain enhancement） |
-| R1 response drafted | 2026-06-15（`review/R1-response-to-reviewer.md`） |
+| Stage 1 radius-offset test | Completed (2026-06-13): null/weak, used as pivot motivation |
+| Exp 1c completed | 2026-06-16 (v2 2026-06-17): N=2956 CLEAN, displaced + same-swath random controls, \|∇SSH\| + S_app, control coords saved |
+| Exp 2 completed | 2026-06-16: 6/12/18 km filter sensitivity under displaced control, peak radius stable |
+| Exp 1d revised | 2026-06-17 (v2): control-subtracted sector excess; N=815 (mean_E>0), N_eff~4.4 effective sectors, Ctheta lower than background → asymmetric, not annular |
+| Exp 1e revised | 2026-06-17 (v2): pixel-level Q_OW successful (core −0.462 rotation → periphery +0.026 strain); S/\|ζ\| flat at 12km |
+| Exp 1f | 1-pass SwotDiag vs gradient r=0.85 (exploratory); multi-pass validation pending mask tuning |
 
 ## Project Evolution（项目演化）
 
@@ -44,7 +48,7 @@ Stage 1 结果: 16 Kuroshio prototype cases, v2 修正.
 ### 为什么不是"重写"而是"深化"
 
 1. **继承了同一 eddy registry**: DUACS/PET 检测的 7057 对 SWOT-eddy matches
-2. **继承了同一数据处理链**: SwotDiag 拟合核 + Archer pipeline + De Marez gap-handling
+2. **继承了同一诊断目标**: SwotDiag-style derivative diagnostics as reference; production implementation uses CDT filt2 + MATLAB gradient(); SwotDiag consistency verified (r=0.85, 1 pass exploratory)
 3. **继承了同一核心策略**: AVISO detect → SWOT measure
 4. **Stage 1 的 null/weak 不是失败**: 它排除了低层解释，指向了更深的问题
 
@@ -57,17 +61,32 @@ Stage 1 结果: 16 Kuroshio prototype cases, v2 修正.
 | Zhang 2019 NC | AVISO DUACS strain → ageostrophic motion / Chl | 用 SWOT 替换 AVISO；从全场 strain → eddy-centric periphery |
 | Liu 2026 GRL | SWOT Lagrangian flow network（South China Sea） | 刻意避开 network 方向；聚焦 eddy-centric strain organization |
 
-### Exp 1 / 物理层 pilot 结果（2026-06-16）
+### Exp 1c — Full physical-layer robustness (2026-06-16)
 
-**Exp 1a — Eddy-centered composite (N=2957 CLEAN):**
-- |∇SSH| 峰值 3.39 µm/m 位于 1.0-1.5R（涡旋外围）
-- 涡核 (0-0.5R): 2.32 µm/m，外围显著高于涡核（+46%）
-- CE (3.69) > AE (3.08) at 1-1.5R
+N = 2956 CLEAN SWOT–eddy matches.
 
-**Exp 1b — Displaced control E = P − C (N=484, 0.2R bins):**
-- C displaced 近乎水平（3.09-3.26 µm/m），完美捕捉局部背景
-- E 核心信号：涡核负值（−1.16 ~ −0.46, p<0.05），外围正值（+0.22 ~ +0.37 at 0.9-1.5R, p<0.05）
-- Excess 峰在 ~1.1R，相对背景增强 ~10%
+**Variables:**
+- |∇SSH| — first-derivative SSH gradient, geostrophic-speed proxy
+- S_app — apparent geostrophic strain-rate proxy (Zhang 2019 definition)
+
+**Controls:**
+- Local displaced control (3–5R, same SWOT pass)
+- Same-swath random control
+
+**Key results:**
+- |∇SSH|: core suppression at 0.1–0.5R (−0.91 to −0.02 µm/m); peripheral excess at 0.9–1.5R; peak +0.40 µm/m at 1.1R
+- S_app: strong core suppression (−4.23 to −0.21 µs⁻¹); peripheral excess at 1.1–1.5R; peak +1.15 µs⁻¹ at 1.3R
+- Random control gives same-sign but slightly weaker excess, supporting robustness against swath geometry
+
+**Exp 2 — Filter-scale sensitivity (2026-06-16)**
+- 6/12/18 km cutoff wavelength; N=2956 per scale
+- |∇SSH| peak E: +0.39 / +0.40 / +0.41 µm/m (all at 1.1R)
+- S_app peak E: +0.75 / +1.09 / +1.20 µs⁻¹ (all at 1.3R)
+- Peak radius stable across all scales
+
+**Production pipeline:**
+SWOT L3 Expert v3.0 → CDT `filt2` 2-D lowpass → `gradient()` → radial composite → displaced + random controls.
+Validation: 1-pass SwotDiag 9-point kernel vs gradient r=0.85 (exploratory); multi-pass validation pending.
 
 **与 Zhang 2019 NC 对比:**
 
@@ -115,9 +134,9 @@ Stage 1 结果: 16 Kuroshio prototype cases, v2 修正.
 
 | Exp | 问题 | 状态 |
 |-----|------|------|
-| 1 | 是否存在 excess peripheral strain? | ✅ Exp 1a (7057 eddy) + Exp 1b (500 displaced control): E(1.1R)=+0.37 µm/m |
-| 2 | 空间范围和滤波尺度敏感性? | 🔲 依赖 Exp 1 |
-| 3 | 伪影排除（简化版 controls）? | 🔶 Displaced control 完成; same-swath random / background-strain matched / isolated-eddy controls pending |
+| 1 | 是否存在 excess peripheral strain? | ✅ Exp 1c: N=2956, dual variables, dual controls |
+| 2 | 空间范围和滤波尺度敏感性? | ✅ 6/12/18 km under displaced control; peak location stable |
+| 3 | 伪影排除（完整 controls）? | 🔶 displaced + same-swath random done; Exp 1d azimuthal (control-subtracted) done → asymmetric not annular; Exp 1e vorticity/OW done → Q_OW confirms rotation-core/strain-periphery; background-strain matched / isolated-eddy subset pending |
 | 4 | 是否预测 SST/Chl-a response? | 🔲 下一步 |
 | 5 | F_edge 分布形态（连续 vs 分群）? | 🔲 依赖 Exp 4 |
 
@@ -140,30 +159,27 @@ Stage 1 结果: 16 Kuroshio prototype cases, v2 修正.
 | 2026-06-14 | D2 | R1 review response in preparation | (draft) |
 | 2026-06-15 | D2 | st_04 Exp 1a full: 7057 eddies, 4.2h, CLEAN N=2957, peak |∇SSH| 3.39 µm/m at 1-1.5R | `data/exp1a_full.mat` |
 | 2026-06-16 | D2 | st_04 Exp 1b (200 pilot): E(1.1R)=+0.32 µm/m, core E=−0.77 — displaced control 证实 excess | `data/exp1b_pilot.mat` |
-| 2026-06-16 | D2 | st_04 Exp 1b (500 eddy, 0.2R bins, precompute gradient): 13.5 s/eddy, peak E=+0.37 at 1.1R, N=484 | `data/exp1b_N500.mat` |
-| 2026-06-16 | D2 | Exp 1 结论: SWOT 观测到外围 ~10% SSH-gradient excess, 涡核低 37%; apparent strain proxy pending; 与 Zhang 2019 互补 | 本 PR |
+| 2026-06-16 | D2 | st_04 Exp 1c full: N=2956 CLEAN, dual variables (\|∇SSH\| + S_app), dual controls (displaced + random), 8min | `data/exp1c_full.mat` |
+| 2026-06-16 | D2 | st_04 Exp 2 filter sensitivity: 6/12/18 km, N=2956/scale, peak location stable | `data/exp2_filt2_sensitivity.mat` |
+| 2026-06-16 | D2 | Physical-layer conclusion: H1 supported in Kuroshio CLEAN sample; pipeline upgraded to filt2+gradient | 本 PR |
+| 2026-06-17 | D2 | Exp 4 SST 全部完成: N=1238 双 control, F_edge Δ=+1.4K, 回归 ΔR²=1.15% (t=5.97), AE/CE 分层, 2D maps | `data/exp4_sst_*.mat` |
 
 ---
 
-## 当前待办（2026-06-16）
+## 当前待办（2026-06-17）
 
-**本次 PR: 文档更新 + Exp 1 物理层 pilot 结果**
-- [x] Exp 1a 全量 composite (7057 eddy)
-- [x] Exp 1b displaced control (500 eddy, E = P − C)
-- [x] Zhang 2019 对比分析
-- [x] 定稿图: Exp 1a composite + Exp 1b excess profile
-- [ ] Commit + push → PR
+**Exp 4: SST Tracer Response**
+- [x] 安装 podaac-data-subscriber + 下载 MUR SST (2023-07~2025-10, 854 天, Kuroshio, 9.8 GB)
+- [x] SST radial composite (N=1238, displaced + random 双 control)
+- [x] F_edge 定义 + 分层 composite + 2D maps (ring-mean 去背景)
+- [x] F_edge 独立性回归 (ΔR²=1.15%, t=5.97, p≈0, AE/CE 分层验证)
+- [x] Polarity 分层 + Selection audit (included 偏大偏强 AE)
+- [ ] Chl-a 独立 tracer 验证（待下载 MODIS/VIIRS）
 
-**下一步: Exp 4 Tracer Response**
-- [ ] 下载 GHRSST MUR SST (~1 km)
-- [ ] 定义 F_edge（外围应变强度，基于 Exp 1b E profile）
-- [ ] SST/Chl-a 在 F_edge quantile 上的 composite
-- [ ] 对比 Zhang 2019: 用 SWOT eddy-centric predictor 替代 DUACS 全场 S_g
-
-**阻塞项: 无。** st_04 可立即开始，数据资产已就绪。
-
-**Tracer response 状态: gated extension。**
-SST/Chl-a 数据尚未下载。Exp 4（tracer response）仅在 Exp 1-3 证实 excess peripheral strain 存在后启动。
+**物理层剩余:**
+- [ ] Background-strain matched control
+- [ ] Isolated-eddy subset
+- [ ] Exp 1f multi-pass SwotDiag validation
 
 ---
 

@@ -133,4 +133,43 @@ P03 的增量：
 
 ---
 
-*冻结日期: 2026-06-14 | 版本: v0.2*
+## 10. Empirical update — 2026-06-17, v0.4 addendum
+
+Physical-layer H1 supported in Kuroshio CLEAN sample (N=2956):
+
+**Claim-grade:**
+- **Exp 1c**: |∇SSH| and S_app, displaced + same-swath random controls. Core suppression (S_app −4.2 to −0.2 µs⁻¹), peripheral excess (|∇SSH| +0.40 µm/m at 1.1R; S_app +1.15 µs⁻¹ at 1.3R). Both controls agree.
+- **Exp 2**: 6/12/18 km filter sensitivity under displaced control. Peak location stable (1.1R for |∇SSH|, 1.3R for S_app).
+
+**Revised (2026-06-17), not yet claim-grade:**
+- **Exp 1d v2**: Control-subtracted sector excess. N=815 with mean_E>0, f_pos_E=0.657, N_eff_E=4.4 effective sectors, Ctheta_vec 0.207 (LOWER than control 0.268). The excess is real but asymmetric — supports "strain enhancement" without "halo."
+- **Exp 1e v2**: Pixel-level Q_OW with displaced controls. Core P_QOW=−0.462 (rotation-dominated), E_QOW=−0.163 (more rotation than background); periphery P_QOW=+0.026 (slightly strain-dominated), E_QOW=+0.012 (more strain than background). S/|ζ| ratio flat at 12km (~1.05-1.12) — Q_OW is the effective discriminator.
+- **Exp 1f**: 1-pass SwotDiag 9pt-fit vs gradient r=0.85 (exploratory). Multi-pass validation pending mask tuning on HPC.
+
+**Remaining physical-layer checks before manuscript-level H1 claim:**
+1. Cluster bootstrap (statistical independence: pass-level, date-block)
+2. Background-strain matched control
+3. Isolated-eddy subset
+4. Exp 1f multi-pass SwotDiag validation
+
+**Terminology**: "eddy-periphery fine-scale geostrophic strain enhancement" confirmed as primary descriptor. "Strain halo" remains provisional — Exp 1d v2 confirms asymmetry (N_eff~4, not 12; Ctheta lower than background).
+
+Core hypotheses unchanged — this addendum records empirical status only.
+
+---
+
+## 11. Exp 4 SST Plan — 2026-06-17
+
+**Data**: GHRSST MUR-JPL-L4-GLOB-v4.1 (0.01°, daily)
+- URL: https://podaac.jpl.nasa.gov/dataset/MUR-JPL-L4-GLOB-v4.1
+- Download: podaac-data-submitter (https://github.com/podaac/data-subscriber)
+- Strategy: L4 only (no L2), eddy-centric radial extraction
+- Time: 2023-07 pilot → expand to full SWOT cycles
+- Region: Kuroshio [130-170E, 28-42N]
+- Workflow: download locally → transfer to HPC → extract per-eddy → radial composite
+
+**Rationale**: MUR L4 is sufficient for eddy-centric composite — ~3000 eddies averaging suppresses random noise; sub-km L2 unnecessary for radial mean SST anomaly profiles.
+
+---
+
+*冻结日期: 2026-06-14 | 版本: v0.2 | Addendum: 2026-06-17 v0.4*
