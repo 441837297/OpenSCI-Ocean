@@ -137,7 +137,7 @@ Validation: 1-pass SwotDiag 9-point kernel vs gradient r=0.85 (exploratory); mul
 | 1 | 是否存在 excess peripheral strain? | ✅ Exp 1c: N=2956, dual variables, dual controls |
 | 2 | 空间范围和滤波尺度敏感性? | ✅ 6/12/18 km under displaced control; peak location stable |
 | 3 | 伪影排除（完整 controls）? | 🔶 displaced + same-swath random done; Exp 1d azimuthal (control-subtracted) done → asymmetric not annular; Exp 1e vorticity/OW done → Q_OW confirms rotation-core/strain-periphery; background-strain matched / isolated-eddy subset pending |
-| 4 | 是否预测 SST/Chl-a response? | 🔲 下一步 |
+| 4 | 是否预测 SST/Chl-a response? | 🔶 Exp 4 SST 完成；Chl-a 待下载 |
 | 5 | F_edge 分布形态（连续 vs 分群）? | 🔲 依赖 Exp 4 |
 
 ---
@@ -163,10 +163,13 @@ Validation: 1-pass SwotDiag 9-point kernel vs gradient r=0.85 (exploratory); mul
 | 2026-06-16 | D2 | st_04 Exp 2 filter sensitivity: 6/12/18 km, N=2956/scale, peak location stable | `data/exp2_filt2_sensitivity.mat` |
 | 2026-06-16 | D2 | Physical-layer conclusion: H1 supported in Kuroshio CLEAN sample; pipeline upgraded to filt2+gradient | 本 PR |
 | 2026-06-17 | D2 | Exp 4 SST 全部完成: N=1238 双 control, F_edge Δ=+1.4K, 回归 ΔR²=1.15% (t=5.97), AE/CE 分层, 2D maps | `data/exp4_sst_*.mat` |
+| 2026-06-19 | D2 | **Midterm review PR #9** to upstream: 3 commits + figures archive + results registry | `PR_2026-06-19_midterm_review.md` |
+| 2026-06-19 | D2 | 补图：Exp 1d/1e/2 三个 `_plot.m` HPC 渲染 + 图归档到 figures/ 子目录 | `st_04_exp1d/e/2_plot.m` |
+| 2026-06-19 | D2 | GPT 讨论确定三层框架（L1/L3 主线，L2 降级）+ Ni 2021 高通策略 | conversational |
 
 ---
 
-## 当前待办（2026-06-17）
+## 当前待办（2026-06-19）
 
 **Exp 4: SST Tracer Response**
 - [x] 安装 podaac-data-subscriber + 下载 MUR SST (2023-07~2025-10, 854 天, Kuroshio, 9.8 GB)
@@ -174,12 +177,24 @@ Validation: 1-pass SwotDiag 9-point kernel vs gradient r=0.85 (exploratory); mul
 - [x] F_edge 定义 + 分层 composite + 2D maps (ring-mean 去背景)
 - [x] F_edge 独立性回归 (ΔR²=1.15%, t=5.97, p≈0, AE/CE 分层验证)
 - [x] Polarity 分层 + Selection audit (included 偏大偏强 AE)
-- [ ] Chl-a 独立 tracer 验证（待下载 MODIS/VIIRS）
+- [x] Exp 1d/1e/2 补图 (sector excess / Q_OW / filter sensitivity)
+- [x] 中期 PR 发布 (pangeo-data/OpenSCI-Ocean#9)
+- [ ] Chl-a 独立 tracer 验证（Copernicus GlobColour L4 NRT daily）
+- [ ] SST 重做 with Ni 2021 6° 高通（Exp 4b）
 
-**物理层剩余:**
-- [ ] Background-strain matched control
-- [ ] Isolated-eddy subset
+**物理层加固:**
+- [ ] Background-strain matched control (Exp 1g)
+- [ ] Isolated-eddy subset (Exp 1h)
+- [ ] Cluster bootstrap (Exp 1i)
 - [ ] Exp 1f multi-pass SwotDiag validation
+
+**机制模块:**
+- [ ] Exp 6a: Front-strain alignment
+- [ ] Exp 6b: Light-side / dense-side Chl
+- [ ] Exp 6c: Eddy intensification tendency control
+
+**跨区域:**
+- [ ] Exp 7: Gulf Stream / Agulhas
 
 ---
 
